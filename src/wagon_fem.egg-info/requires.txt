@@ -1,0 +1,10 @@
+pynitefea>=1.6.2
+
+[dev]
+pytest>=7.0
+pytest-cov
+black
+isort
+flake8
+pre-commit
+setuptools_scm
