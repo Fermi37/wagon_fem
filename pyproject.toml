@@ -12,7 +12,9 @@ classifiers = [
 	"Operating System :: OS Independent",
 ]
 keywords = ["fem", "wagon", "example"]
-dependencies = []
+dependencies = [
+    "pynitefea>=1.6.2",
+]
 
 [project.urls]
 Homepage = "https://example.com"
