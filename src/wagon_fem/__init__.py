@@ -1,8 +1,10 @@
 """Top-level package for wagon_fem."""
 
-from .core import add
+from .model import WagonModel
+from .loader import load_edges_from_csv, Edge
+from .solver import solve_and_get_moments, print_results
 
-__all__ = ["add"]
+__all__ = ["WagonModel", "load_edges_from_csv", "Edge", "solve_and_get_moments", "print_results"]
 
 __version__ = "0.1.0"
 

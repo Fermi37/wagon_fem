@@ -1,0 +1,2 @@
+[console_scripts]
+wagon-fem = wagon_fem.__main__:main

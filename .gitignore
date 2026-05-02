@@ -1,37 +1,3 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+(data/wagon_frame.csv, src/wagon_fem/fem.py, src/wagon_fem/loader.py, src/wagon_fem/model.py, src/wagon_fem/solver.py)
 
-# Distribution / packaging
-build/
-dist/
-*.egg-info/
-.eggs/
-
-# Virtual envs
-.env
-.venv
-venv/
-ENV/
-
-# Pytest
-.pytest_cache/
-
-# Editor
-.vscode/
-.idea/
-*.swp
-
-# OS
-.DS_Store
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
+(src/wagon_fem/__init__.py, src/wagon_fem/__main__.py)
