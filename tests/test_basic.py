@@ -1,7 +1,9 @@
 """Basic tests for wagon_fem."""
 
-from wagon_fem import add
+from wagon_fem.model import create_simple_wagon_model
 
 
-def test_add():
-    assert add(2, 3) == 5
+def test_create_model():
+    model = create_simple_wagon_model()
+    assert len(model.nodes) > 0
+    assert len(model.members) > 0
