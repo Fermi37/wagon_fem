@@ -501,8 +501,8 @@ def analyze_structure(
         except Exception as e:
             logger.exception("Failed to load model from CSV: %s", e)
             # return the same shape as the successful path; last value is server-side model state (None)
-            # Output tuple length must match the successful case (12 outputs)
-            return f"Ошибка загрузки файла: {e}", None, [], None, None, None, None, None, None, None, prepare_node_table(file), None
+            # Output tuple length must match the successful case (+1 for plotly_html)
+            return f"Ошибка загрузки файла: {e}", None, [], None, None, None, None, None, None, None, None, prepare_node_table(file), None
 
     # Helper to interpret truthy values from editable table
     def _truthy(v):
@@ -571,8 +571,8 @@ def analyze_structure(
         model = run_analysis(model)
     except Exception as e:
         logger.exception("run_analysis failed: %s", e)
-        # Match the full output tuple (gallery placeholder = [])
-        return f"Ошибка выполнения расчета: {e}", None, [], None, None, None, None, None, None, None, node_props_out, None
+        # Match the full output tuple (gallery placeholder = []) — include extra HTML slot
+        return f"Ошибка выполнения расчета: {e}", None, [], None, None, None, None, None, None, None, None, node_props_out, None
 
     # Tables
     df_moments = get_moments_table(model)
@@ -616,6 +616,34 @@ def analyze_structure(
         show_colorbar=show_colorbar,
         prefer_plotly=use_plotly,
     )
+
+    # Normalize returned 3D figure into two outputs:
+    # - `fig3d_plot`: a Matplotlib Figure (or None)
+    # - `fig3d_html`: an HTML fragment containing Plotly markup (or None)
+    fig3d_plot = None
+    fig3d_html = None
+    try:
+        # If get_3d_figure returned a Plotly Figure, convert to HTML for robust
+        # client-side rendering (works across Gradio/Spaces versions).
+        import plotly.graph_objects as _go  # type: ignore
+        import plotly.io as _pio  # type: ignore
+        if isinstance(fig3d, _go.Figure):
+            try:
+                fig3d_html = _pio.to_html(
+                    fig3d, full_html=False, include_plotlyjs='cdn')
+            except Exception:
+                logger.exception(
+                    "Failed to convert Plotly figure to HTML; dropping interactive")
+                fig3d_plot = None
+        else:
+            # Assume a Matplotlib Figure was returned
+            fig3d_plot = fig3d
+    except Exception:
+        # Plotly not available — treat fig3d as Matplotlib Figure
+        try:
+            fig3d_plot = fig3d
+        except Exception:
+            fig3d_plot = None
 
     # Generate per-member moment (Mz) and approximate shear plots and bundle them
     plots_zip_path = None
@@ -797,10 +825,11 @@ def analyze_structure(
         plot_gallery_data = []
 
     # Return the computed results and keep the server-side model in the last output
-    # Outputs order:
-    # text_result, example_plot(fig), gallery_images(list of paths), df_moments, df_disp, fig3d,
+    # Outputs order (note extra slot for Plotly HTML):
+    # text_result, example_plot(fig), gallery_images(list of paths), df_moments, df_disp,
+    # fig3d_plot (Matplotlib) or None, fig3d_html (Plotly HTML) or None,
     # moments_csv, displacements_csv, modified_model_csv, plots_zip, node_props_out, model
-    return text_result, fig, plot_gallery_data, df_moments, df_disp, fig3d, moments_path, disp_path, modified_csv_path, plots_zip_path, node_props_out, model
+    return text_result, fig, plot_gallery_data, df_moments, df_disp, fig3d_plot, fig3d_html, moments_path, disp_path, modified_csv_path, plots_zip_path, node_props_out, model
 
 
 def on_3d_plot_click(evt, model):
@@ -908,18 +937,15 @@ with gr.Blocks(title="Wagon FEM Analysis") as demo:
             use_plotly_ck = gr.Checkbox(
                 label="Use Plotly interactive viewer", value=True)
 
-        with gr.Tab("Node properties"):
-            node_table_headers = [
-                "node_id", "x", "y", "z",
-                "support_dx", "support_dy", "support_dz", "support_rx", "support_ry", "support_rz",
-                "fx", "fy", "fz", "mx", "my", "mz",
-            ]
-            empty_df = pd.DataFrame(columns=node_table_headers)
-            node_props_table = gr.DataFrame(
-                value=empty_df, label="Node properties (supports & loads)", interactive=True)
-
         with gr.Tab("3D Viewer"):
             plot_3d = gr.Plot(label="3D Viewer")
+            # HTML placeholder for Plotly interactive markup (used as a robust
+            # fallback on platforms where native Plotly objects are not rendered
+            # correctly by Gradio). When Plotly is available we return an HTML
+            # fragment (plotly.io.to_html) into this component; otherwise the
+            # Matplotlib Figure is returned to `plot_3d`.
+            plotly_html = gr.HTML(
+                value="", label="Interactive 3D (Plotly HTML)")
 
         with gr.Tab("Plots"):
             plot_output = gr.Plot(label="Эпюра моментов (пример)")
@@ -984,7 +1010,7 @@ with gr.Blocks(title="Wagon FEM Analysis") as demo:
         fn=analyze_structure,
         inputs=[file_input, show_deformed, scale_slider, apply_node_props_ck, color_by_dd,
                 max_elem_len, node_props_table, show_colorbar_ck, colormap_dd, sample_res, use_plotly_ck, model_nodes_table, model_edges_table],
-        outputs=[output_text, plot_output, plot_gallery, table_moments, table_disp, plot_3d,
+        outputs=[output_text, plot_output, plot_gallery, table_moments, table_disp, plot_3d, plotly_html,
                  export_moments_file, export_disp_file, export_modified_csv, export_plots_zip, node_props_table, model_state],
         api_name="run_analysis",
         api_description="Run FEM analysis (may be long-running)",
