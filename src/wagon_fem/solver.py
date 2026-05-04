@@ -7,6 +7,8 @@ Provides:
 - get_displacements_table(model)
 - get_3d_figure(model, ...)
 """
+from typing import Optional
+
 import pandas as pd
 
 
@@ -90,7 +92,9 @@ def get_3d_figure(model: FEModel3D,
                   sample_resolution: int = 11,
                   colormap: str = 'viridis',
                   show_colorbar: bool = True,
-                  prefer_plotly: bool = True):
+                  prefer_plotly: bool = True,
+                  highlight_member: Optional[str] = None,
+                  highlight_node: Optional[str] = None):
     """Create a 3D viewer for the model.
 
     Returns a Plotly Figure when plotly is available and preferred, otherwise
@@ -215,10 +219,19 @@ def get_3d_figure(model: FEModel3D,
                     except Exception:
                         color_hex = 'royalblue'
 
+                is_highlight = (highlight_member is not None and str(
+                    mem.name) == str(highlight_member))
+                line_width = 10 if is_highlight else 6
+                line_color = 'red' if is_highlight else color_hex
+
+                # attach customdata so clicks can identify the member
+                customdata = [f"MEM:{mem.name}", f"MEM:{mem.name}"]
+                hover_text = f"{mem.name}\\n{color_by}: {metrics[mi]:.3g}\\navg Mz: {m_mean:.3g}"
+
                 fig.add_trace(go.Scatter3d(
                     x=[xi, xj], y=[yi, yj], z=[zi, zj],
-                    mode='lines', line=dict(color=color_hex, width=6),
-                    hoverinfo='text', text=f"{mem.name}\n{color_by}: {metrics[mi]:.3g}\navg Mz: {m_mean:.3g}"
+                    mode='lines', line=dict(color=line_color, width=line_width),
+                    hoverinfo='text', text=hover_text, customdata=customdata
                 ))
 
             # nodes
@@ -227,10 +240,24 @@ def get_3d_figure(model: FEModel3D,
             else:
                 xs, ys, zs = zip(*node_coords) if node_coords else ([], [], [])
 
+            # node markers with customdata for identification
+            node_custom = [f"NODE:{n.name}" for n in nodes]
+            node_texts = [str(n.name) for n in nodes]
+            marker_size = 6
+            if highlight_node is not None:
+                marker_colors = ['red' if str(n.name) == str(
+                    highlight_node) else 'red' for n in nodes]
+                marker_sizes = [12 if str(n.name) == str(
+                    highlight_node) else 6 for n in nodes]
+            else:
+                marker_colors = ['red' for _ in nodes]
+                marker_sizes = [6 for _ in nodes]
+
             fig.add_trace(go.Scatter3d(
                 x=xs, y=ys, z=zs, mode='markers+text',
-                marker=dict(size=4, color='red'),
-                text=[str(n.name) for n in nodes], textposition='top center', name='nodes'
+                marker=dict(size=marker_sizes, color=marker_colors),
+                text=node_texts, textposition='top center', name='nodes',
+                customdata=node_custom, hovertemplate='Node: %{customdata}<extra></extra>'
             ))
 
             if show_colorbar and metrics:
@@ -260,7 +287,9 @@ def get_3d_figure(model: FEModel3D,
                     x=mids_x, y=mids_y, z=mids_z, mode='markers',
                     marker=dict(size=2, color=metrics, colorscale=plotly_cmap,
                                 cmin=vmin, cmax=vmax, colorbar=dict(title=color_by)),
-                    hoverinfo='none', showlegend=False
+                    hoverinfo='none', showlegend=False,
+                    customdata=[
+                        f"MEM:{mem.name}" for mem in model.members.values()]
                 ))
 
             fig.update_layout(scene=dict(aspectmode='data'),
