@@ -6,17 +6,70 @@ from typing import Any
 
 import gradio as gr
 
-from .services import AnalysisOptions, analyze_model, load_documentation, prepare_ui_tables, save_model_csv
-from .solver import get_3d_figure
+from .services import (
+    AnalysisOptions,
+    analyze_model,
+    load_guide_markdown,
+    prepare_ui_tables,
+    render_legend_html,
+    render_metric_reference_html,
+    save_model_csv,
+)
 
 logger = logging.getLogger(__name__)
 if not logger.handlers:
     logging.basicConfig(level=logging.INFO)
 
+APP_CSS = """
+#viewer-shell {
+  position: relative;
+}
 
-def load_tables_for_ui(source: Any) -> tuple[Any, Any, Any]:
+#viewer-shell .gr-model3d {
+  min-height: 520px;
+}
+
+#viewer-legend {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  max-width: min(460px, calc(100% - 36px));
+  pointer-events: none;
+}
+
+#viewer-legend .legend-box {
+  color: #000 !important;
+}
+"""
+
+RESULT_METRIC_CHOICES = [
+    "Mz",
+    "My",
+    "Axial",
+    "Shear Fy",
+    "Shear Fz",
+    "Torque",
+    "Dx",
+    "Dy",
+    "Dz",
+    "Rx",
+    "Ry",
+    "Rz",
+    "RxnFX",
+    "RxnFY",
+    "RxnFZ",
+    "RxnMX",
+    "RxnMY",
+    "RxnMZ",
+    "None",
+]
+METRIC_REFERENCE_HTML = render_metric_reference_html()
+
+
+def load_tables_for_ui(source: Any) -> tuple[Any, Any, Any, Any]:
     tables = prepare_ui_tables(source)
-    return tables.node_properties, tables.nodes, tables.edges
+    return tables.task_nodes, tables.task_members, tables.nodes, tables.edges
 
 
 def run_analysis_for_ui(
@@ -24,13 +77,13 @@ def run_analysis_for_ui(
     show_deformed: bool,
     scale: float,
     apply_node_props: bool,
-    color_by: str,
+    result_metric: str,
     max_member_length: float,
-    node_props: Any,
+    task_nodes: Any,
+    task_members: Any,
     show_colorbar: bool,
     colormap: str,
     sample_resolution: int,
-    use_plotly: bool,
     model_nodes: Any,
     model_edges: Any,
 ):
@@ -38,192 +91,147 @@ def run_analysis_for_ui(
         show_deformed=show_deformed,
         scale=scale,
         apply_node_props=apply_node_props,
-        color_by=color_by,
+        result_metric=result_metric,
         max_member_length=max_member_length,
         show_colorbar=show_colorbar,
         colormap=colormap,
         sample_resolution=sample_resolution,
-        use_plotly=use_plotly,
     )
     result = analyze_model(
         source=source,
-        node_properties=node_props,
+        task_nodes=task_nodes,
+        task_members=task_members,
         model_nodes=model_nodes,
         model_edges=model_edges,
         options=options,
     )
     return (
         result.status_text,
+        result.viewer_model_path,
+        render_legend_html(result.viewer_legend, colormap),
         result.moments_table,
         result.displacements_table,
-        result.viewer_figure,
         result.moments_csv_path,
         result.displacements_csv_path,
         result.model_csv_path,
-        result.node_properties,
+        result.task_nodes,
+        result.task_members,
         result.model,
     )
 
 
-def on_3d_plot_click(evt, model):
-    try:
-        if not evt:
-            return None, "No selection"
-        points = evt.get("points") if isinstance(evt, dict) else None
-    except Exception:
-        points = None
+def build_demo() -> gr.Blocks:
+    default_tables = prepare_ui_tables(None)
+    with gr.Blocks(title="Wagon FEM Analysis", css=APP_CSS) as demo:
+        gr.Markdown("# Wagon FEM Analysis")
+        gr.Markdown("Upload geometry, review task data, run the solver, and inspect exports.")
 
-    if not points or model is None:
-        return None, "No selection"
+        with gr.Tabs():
+            with gr.Tab("Main"):
+                with gr.Row():
+                    with gr.Column(scale=1):
+                        file_input = gr.File(label="Upload model CSV")
+                        run_button = gr.Button("Run analysis", variant="primary")
+                        output_text = gr.Textbox(label="Solver status", lines=4)
+                    with gr.Column(scale=1):
+                        export_moments_file = gr.File(label="Moments CSV")
+                        export_disp_file = gr.File(label="Displacements CSV")
+                        export_model_file = gr.File(label="Merged model CSV")
 
-    point = points[0]
-    customdata = point.get("customdata") if isinstance(point, dict) else None
-    custom_value = customdata[0] if isinstance(customdata, (list, tuple)) else customdata
+            with gr.Tab("Construction Data"):
+                model_nodes_table = gr.DataFrame(value=default_tables.nodes, label="Nodes", interactive=True)
+                model_edges_table = gr.DataFrame(value=default_tables.edges, label="Edges", interactive=True)
+                save_model_button = gr.Button("Save merged CSV")
 
-    selection_type = None
-    selection_id = None
-    if isinstance(custom_value, str):
-        if custom_value.startswith("MEM:"):
-            selection_type = "member"
-            selection_id = custom_value.split(":", 1)[1]
-        elif custom_value.startswith("NODE:"):
-            selection_type = "node"
-            selection_id = custom_value.split(":", 1)[1]
+            with gr.Tab("Task Data"):
+                task_nodes_table = gr.DataFrame(value=default_tables.task_nodes, label="Node supports and nodal loads", interactive=True)
+                task_members_table = gr.DataFrame(value=default_tables.task_members, label="Member distributed loads", interactive=True)
 
-    if selection_id is None:
-        return None, "Selection not recognized"
+            with gr.Tab("3D Viewer"):
+                with gr.Group(elem_id="viewer-shell"):
+                    viewer_model = gr.Model3D(
+                        label="3D structure",
+                        clear_color=(0.97, 0.98, 1.0, 1.0),
+                        height=520,
+                    )
+                    legend_html = gr.HTML(label="Legend", elem_id="viewer-legend")
+                with gr.Group():
+                    gr.Markdown("### Viewer controls")
+                    result_metric_dd = gr.Dropdown(choices=RESULT_METRIC_CHOICES, value="Mz", label="Calculated parameter")
+                    show_deformed_ck = gr.Checkbox(label="Show deformed geometry", value=True)
+                    scale_slider = gr.Slider(0.0, 1000.0, value=100.0, step=1.0, label="Deformation scale")
+                    max_elem_len = gr.Slider(0.0, 20000.0, value=0.0, step=100.0, label="Maximum member length (mm)")
+                    colormap_dd = gr.Dropdown(
+                        choices=["viridis", "plasma", "inferno", "magma", "cividis"],
+                        value="viridis",
+                        label="Color map",
+                    )
+                    sample_res = gr.Slider(3, 101, value=11, step=1, label="Sampling resolution")
+                    apply_node_props_ck = gr.Checkbox(label="Apply task data from editor", value=True)
+                    show_colorbar_ck = gr.Checkbox(label="Show numeric legend", value=True)
 
-    if selection_type == "member":
-        figure = get_3d_figure(model, prefer_plotly=True, highlight_member=selection_id)
-        return figure, f"Selected member: {selection_id}"
+            with gr.Tab("Results"):
+                table_moments = gr.DataFrame(label="Moments table")
+                table_disp = gr.DataFrame(label="Displacements table")
 
-    figure = get_3d_figure(model, prefer_plotly=True, highlight_node=selection_id)
-    return figure, f"Selected node: {selection_id}"
+            with gr.Tab("Guide"):
+                gr.Markdown(load_guide_markdown())
+                gr.HTML(value=METRIC_REFERENCE_HTML, label="Available metrics")
 
+        model_state = gr.State()
 
-default_tables = prepare_ui_tables(None)
+        file_input.change(
+            fn=load_tables_for_ui,
+            inputs=[file_input],
+            outputs=[task_nodes_table, task_members_table, model_nodes_table, model_edges_table],
+        )
 
-with gr.Blocks(title="Wagon FEM Analysis") as demo:
-    gr.Markdown("# Wagon FEM Analysis")
+        run_button.click(
+            fn=run_analysis_for_ui,
+            inputs=[
+                file_input,
+                show_deformed_ck,
+                scale_slider,
+                apply_node_props_ck,
+                result_metric_dd,
+                max_elem_len,
+                task_nodes_table,
+                task_members_table,
+                show_colorbar_ck,
+                colormap_dd,
+                sample_res,
+                model_nodes_table,
+                model_edges_table,
+            ],
+            outputs=[
+                output_text,
+                viewer_model,
+                legend_html,
+                table_moments,
+                table_disp,
+                export_moments_file,
+                export_disp_file,
+                export_model_file,
+                task_nodes_table,
+                task_members_table,
+                model_state,
+            ],
+            api_name="run_analysis",
+            show_progress="full",
+            queue=True,
+            concurrency_limit=1,
+        )
 
-    with gr.Tabs():
-        with gr.Tab("Main"):
-            with gr.Row():
-                with gr.Column():
-                    file_input = gr.File(label="Загрузить CSV модели")
-                    run_button = gr.Button("Выполнить расчет", variant="primary")
-                with gr.Column():
-                    output_text = gr.Textbox(label="Статус расчета", lines=4)
-                    selection_info = gr.Textbox(label="Selection", interactive=False)
-
-        with gr.Tab("Node Properties"):
-            node_props_table = gr.DataFrame(
-                value=default_tables.node_properties,
-                label="Node supports and loads",
-                interactive=True,
-            )
-
-        with gr.Tab("Construction Data"):
-            model_nodes_table = gr.DataFrame(
-                value=default_tables.nodes,
-                label="Nodes",
-                interactive=True,
-            )
-            model_edges_table = gr.DataFrame(
-                value=default_tables.edges,
-                label="Edges",
-                interactive=True,
-            )
-            save_model_button = gr.Button("Сохранить текущий CSV")
-
-        with gr.Tab("Settings"):
-            show_deformed = gr.Checkbox(label="Показать деформированную форму", value=True)
-            scale_slider = gr.Slider(0.0, 1000.0, value=100.0, step=1.0, label="Масштаб деформации")
-            apply_node_props_ck = gr.Checkbox(label="Применять опоры и нагрузки узлов", value=True)
-            color_by_dd = gr.Dropdown(choices=["Mz", "My", "None"], value="Mz", label="Раскраска элементов")
-            max_elem_len = gr.Slider(0.0, 20000.0, value=0.0, step=100.0, label="Максимальная длина элемента (мм)")
-            show_colorbar_ck = gr.Checkbox(label="Показывать шкалу цветов", value=True)
-            colormap_dd = gr.Dropdown(
-                choices=["viridis", "plasma", "inferno", "magma", "cividis"],
-                value="viridis",
-                label="Colormap",
-            )
-            sample_res = gr.Slider(3, 101, value=11, step=1, label="Количество точек на элемент")
-            use_plotly_ck = gr.Checkbox(label="Использовать Plotly", value=True)
-
-        with gr.Tab("3D Viewer"):
-            plot_3d = gr.Plot(label="3D Viewer")
-
-        with gr.Tab("Results"):
-            table_moments = gr.DataFrame(label="Таблица моментов")
-            table_disp = gr.DataFrame(label="Таблица перемещений")
-
-        with gr.Tab("Exports"):
-            export_moments_file = gr.File(label="Moments CSV")
-            export_disp_file = gr.File(label="Displacements CSV")
-            export_model_file = gr.File(label="Model CSV")
-
-        with gr.Tab("Documentation"):
-            gr.Markdown(load_documentation())
-
-    model_state = gr.State()
-
-    file_input.change(
-        fn=load_tables_for_ui,
-        inputs=[file_input],
-        outputs=[node_props_table, model_nodes_table, model_edges_table],
-    )
-
-    run_button.click(
-        fn=run_analysis_for_ui,
-        inputs=[
-            file_input,
-            show_deformed,
-            scale_slider,
-            apply_node_props_ck,
-            color_by_dd,
-            max_elem_len,
-            node_props_table,
-            show_colorbar_ck,
-            colormap_dd,
-            sample_res,
-            use_plotly_ck,
-            model_nodes_table,
-            model_edges_table,
-        ],
-        outputs=[
-            output_text,
-            table_moments,
-            table_disp,
-            plot_3d,
-            export_moments_file,
-            export_disp_file,
-            export_model_file,
-            node_props_table,
-            model_state,
-        ],
-        api_name="run_analysis",
-        show_progress="full",
-        queue=True,
-        concurrency_limit=1,
-    )
-
-    save_model_button.click(
-        fn=save_model_csv,
-        inputs=[model_nodes_table, model_edges_table, node_props_table],
-        outputs=[export_model_file],
-        queue=False,
-    )
-
-    try:
-        plot_3d.select(
-            fn=on_3d_plot_click,
-            inputs=[model_state],
-            outputs=[plot_3d, selection_info],
+        save_model_button.click(
+            fn=save_model_csv,
+            inputs=[model_nodes_table, model_edges_table, task_nodes_table, task_members_table],
+            outputs=[export_model_file],
             queue=False,
         )
-    except Exception:
-        logger.debug("Plot event binding not available in this Gradio version")
+    return demo
+
+
+demo = build_demo()
 
 
 def main():

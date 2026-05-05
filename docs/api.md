@@ -1,8 +1,8 @@
 # API reference
 
 This page summarizes the main programmatic building blocks available in the
-`wagon_fem` package. Prefer the high-level helpers in `model` and `solver` for
-most workflows.
+`wagon_fem` package. Prefer the high-level helpers in `model`, `solver`, and
+`services` for most workflows.
 
 Modules and highlights
 
@@ -21,11 +21,15 @@ Modules and highlights
   - `run_analysis(model: FEModel3D)` — wrapper that calls the FE backend `analyze()`.
   - `get_moments_table(model)`, `get_displacements_table(model)` — return pandas
     DataFrames with extracted results.
-  - `get_3d_figure(model, ...)` — returns a Plotly or Matplotlib figure for visualization.
+  - `get_3d_figure(model, ...)` — legacy figure helper for local visualization paths.
+
+- `wagon_fem.services`
+  - `prepare_ui_tables(source)` — splits combined CSV content into geometry tables and task-data tables.
+  - `analyze_model(...)` — merges task data back into the model, runs the solver, writes CSV exports, computes viewer metric metadata, and generates a `.gltf` viewer artifact.
+  - `load_guide_markdown()` — returns the curated in-app guide content.
 
 - `wagon_fem.ui`
-  - Gradio-based UI. The `analyze_structure` function wires together model loading,
-    application of node supports/loads, running analysis and returning plots/tables.
+  - Gradio-based UI with `Main`, `Construction Data`, `Task Data`, `3D Viewer`, `Results`, and `Guide` surfaces. The `3D Viewer` tab also contains the metric selector, legend, and viewer settings below the model.
   
 - `wagon_fem.ui_cli`
   - Typer-based CLI wrapper for launching the Gradio UI. Use
@@ -50,7 +54,5 @@ Notes & caveats
 - The package dynamically imports the FE class from either `Pynite` or `pynite`.
   Install a compatible FE implementation (for example `pynitefea`) in the same
   environment before running the examples or tests.
-- There are a few small API mismatches in the codebase (for example some
-  top-level entrypoints reference a `WagonModel` symbol that is not exported).
-  The easiest approach is to use the functions shown above (`load_model_from_csv`,
-  `run_analysis`, etc.) until those entrypoints are harmonized.
+- The primary Hugging Face viewer path is the generated `.gltf` artifact used by
+  Gradio `Model3D`, rather than Plotly-based interactivity.

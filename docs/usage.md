@@ -42,6 +42,16 @@ df = get_moments_table(model)
 print(df)
 ```
 
+## Gradio app workflow
+
+The Gradio UI is arranged around:
+
+- `Main` for upload, solve, and export
+- `Construction Data` for geometry and section properties
+- `Task Data` for supports, nodal loads, and member distributed loads
+- `3D Viewer` for the generated `.gltf` model, metric switching, legend, and rendering controls under the viewer
+- `Guide` for the single in-app reference
+
 ## CSV input format
 
 The loader accepts a CSV that contains a node table followed by an edge table
@@ -65,6 +75,8 @@ Notes:
 - Edge table columns: `edge_id`/`id`, `start_node`, `end_node`, and optional
   section/material properties (`E`, `Iy`, `Iz`, `J`, `A`) and distributed loads
   (`w`, `w1`, `w2`, `dist_dir`).
+- The UI splits these fields into `Construction Data` and `Task Data`, but the
+  saved CSV remains a combined schema.
 
 ## Edge columns (detailed)
 

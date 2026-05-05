@@ -1,6 +1,8 @@
 # Documentation
 
 This directory contains user-oriented documentation for the wagon-fem package.
+The Gradio app itself exposes one curated `Guide` tab for the operational
+workflow, while this directory keeps the broader repository documentation.
 
 Available pages:
 

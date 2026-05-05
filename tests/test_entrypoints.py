@@ -7,6 +7,8 @@ def test_ui_module_imports():
     module = importlib.import_module("wagon_fem.ui")
 
     assert getattr(module, "demo", None) is not None
+    assert not hasattr(module, "node_props_table")
+    assert not hasattr(module, "show_deformed")
 
 
 def test_main_module_imports():

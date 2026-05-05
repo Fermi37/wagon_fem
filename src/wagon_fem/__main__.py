@@ -30,26 +30,27 @@ def main() -> None:
         raise SystemExit(f"Ошибка: файл {csv_path} не найден.")
 
     tables = prepare_ui_tables(csv_path)
-    node_props = tables.node_properties.copy()
+    task_nodes = tables.task_nodes.copy()
 
     for support_def in args.supports:
         node_id_str, raw_flags = support_def.split(":", 1)
         flags = _parse_support_flags(raw_flags)
-        node_mask = node_props["node_id"].astype(str) == node_id_str
+        node_mask = task_nodes["node_id"].astype(str) == node_id_str
         if not node_mask.any():
             raise SystemExit(f"Ошибка: узел {node_id_str} отсутствует в модели.")
         for column, value in zip(
             ["support_dx", "support_dy", "support_dz", "support_rx", "support_ry", "support_rz"],
             flags,
         ):
-            node_props.loc[node_mask, column] = value
+            task_nodes.loc[node_mask, column] = value
 
     result = analyze_model(
         source=csv_path,
-        node_properties=node_props,
+        task_nodes=task_nodes,
+        task_members=tables.task_members,
         model_nodes=tables.nodes,
         model_edges=tables.edges,
-        options=AnalysisOptions(use_plotly=False),
+        options=AnalysisOptions(),
     )
 
     print(result.status_text)

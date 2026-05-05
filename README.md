@@ -7,8 +7,9 @@ title: wagon-fem
 # wagon-fem
 
 Wagon FEM — a small Python package for building simple 3D frame models of a wagon
-and computing bending moments with a Pynite-based FE backend. Includes a lightweight
-Gradio UI for interactive exploration and CSV-based model importers for quick tests.
+and computing bending moments with a Pynite-based FE backend. The Gradio UI is
+organized around geometry editing, task-data editing, CSV exports, and a Hugging
+Face-friendly 3D model viewer.
 
 ## Quick start
 
@@ -56,6 +57,16 @@ python -m wagon_fem.ui_cli serve --port 7860 --share
 # `--no-queue`.
 ```
 
+## UI workflow
+
+The Gradio application is organized into five focused areas:
+
+- `Main` — upload a CSV file, run the solver, and download exports.
+- `Construction Data` — edit node coordinates and member properties.
+- `Task Data` — edit supports, nodal loads, and member distributed loads.
+- `3D Viewer` — inspect the generated `.gltf` model through `gr.Model3D`, switch between calculated metrics, and use rendering controls directly under the viewer.
+- `Guide` — read the single in-app workflow and troubleshooting reference.
+
 ## Programmatic API (example)
 
 ```python
@@ -72,6 +83,7 @@ Key modules:
 - `wagon_fem.loader` — helpers for small CSV formats (edge/node tables)
 - `wagon_fem.model` — model construction helpers (create demo frames, load CSVs)
 - `wagon_fem.solver` — analysis wrappers and result extraction (moments, displacements)
+- `wagon_fem.services` — UI-oriented table preparation, task-data merging, analysis orchestration, and `Model3D` export
 - `wagon_fem.ui` — Gradio front-end and helpers for interactive use
 
 ## CSV format
@@ -84,15 +96,20 @@ Two common CSV layouts are supported:
 - Separate node/edge tables with columns (case-insensitive) as follows.
 
 Recommended node columns:
-- `node_id` or `id`, `x`, `y`, `z` — coordinates
-- Optional supports: `support_dx`, `support_dy`, `support_dz`, `support_rx`, `support_ry`, `support_rz` (truthy values: 1/true/yes/x)
-- Optional single `supports` column with comma-separated flags (e.g. `dx,dy`)
+- `node_id` or `id`, `x`, `y`, `z` — geometry columns shown in `Construction Data`
+- Optional supports: `support_dx`, `support_dy`, `support_dz`, `support_rx`, `support_ry`, `support_rz`
 - Optional nodal loads: `fx`, `fy`, `fz`, `mx`, `my`, `mz`
+
+In the UI, support and nodal-load columns are surfaced through `Task Data`, even
+though they are still stored in the combined CSV schema.
 
 Recommended edge columns:
 - `edge_id` (or `id`), `start_node`, `end_node`
 - Optional section/material properties: `E`, `Iy`, `Iz`, `J`, `A`
 - Optional distributed load columns: `w`, `w1`, `w2`, `dist_dir` / `dir` (e.g. `FY`)
+
+In the UI, distributed-load columns are edited through the member table in
+`Task Data`.
 
 See `data/wagon_frame.csv` for a sample input combining a node table and an edge table.
 
@@ -170,8 +187,8 @@ active virtualenv.
 
 ## Documentation
 
-Human-friendly docs live in the `docs/` directory. You can preview them with MkDocs
-or any static site generator that reads Markdown.
+Repository docs live in `docs/`, while the app exposes one curated in-app `Guide`
+tab for workflow, schema notes, Hugging Face viewer behavior, and troubleshooting.
 
 ## License
 
