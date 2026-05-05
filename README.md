@@ -166,10 +166,7 @@ active virtualenv.
 ## Known issues / notes
 
 - The package dynamically imports `FEModel3D` from `Pynite` or `pynite`; make sure
-   one of the implementations is installed.
-- A small mismatch exists between the CLI in `__main__.py` and the exported API:
-   some entrypoints reference a `WagonModel` symbol that is not provided as a
-   public class — the CLI may need a minor fix. See `docs/KNOWN_ISSUES.md` (TODO).
+  one of the implementations is installed.
 
 ## Documentation
 

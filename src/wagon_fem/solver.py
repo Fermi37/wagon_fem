@@ -44,13 +44,17 @@ def get_moments_table(model: FEModel3D) -> pd.DataFrame:
     data = []
     for member in model.members.values():
         try:
+            member_length = member.L()
+        except Exception:
+            member_length = 1.0
+        try:
             mz0 = member.moment('Mz', 0)
-            mz1 = member.moment('Mz', 1)
+            mz1 = member.moment('Mz', member_length)
         except Exception:
             mz0 = mz1 = 0.0
         try:
             my0 = member.moment('My', 0)
-            my1 = member.moment('My', 1)
+            my1 = member.moment('My', member_length)
         except Exception:
             my0 = my1 = 0.0
         data.append({
@@ -245,8 +249,8 @@ def get_3d_figure(model: FEModel3D,
             node_texts = [str(n.name) for n in nodes]
             marker_size = 6
             if highlight_node is not None:
-                marker_colors = ['red' if str(n.name) == str(
-                    highlight_node) else 'red' for n in nodes]
+                marker_colors = ['crimson' if str(n.name) == str(
+                    highlight_node) else 'lightgray' for n in nodes]
                 marker_sizes = [12 if str(n.name) == str(
                     highlight_node) else 6 for n in nodes]
             else:

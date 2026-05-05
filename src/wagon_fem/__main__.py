@@ -1,81 +1,64 @@
-"""Command-line entrypoint for wagon_fem package."""
+from __future__ import annotations
 
 import argparse
 from pathlib import Path
 
-from .loader import load_edges_from_csv
-from .model import WagonModel
-from .solver import solve_and_get_moments, print_results
+from .services import AnalysisOptions, analyze_model, prepare_ui_tables
+
+
+def _parse_support_flags(raw: str) -> list[bool]:
+    values = [item.strip().lower() for item in raw.split(",")]
+    if len(values) != 6:
+        raise ValueError("expected 6 support flags")
+    return [value in {"1", "true", "yes", "y"} for value in values]
 
 
 def main() -> None:
-    """Main entry point for the wagon-fem CLI."""
-    parser = argparse.ArgumentParser(
-        description="FEM расчет моментов в балках конструкции вагона"
-    )
-    parser.add_argument(
-        "csv_file",
-        type=str,
-        help="Путь к CSV файлу с геометрией конструкции (ребра)",
-    )
+    parser = argparse.ArgumentParser(description="FEM расчет конструкции вагона")
+    parser.add_argument("csv_file", type=str, help="Путь к CSV файлу модели")
     parser.add_argument(
         "--supports",
         type=str,
-        nargs="+",
-        help="Закрепления узлов в формате node_id:dx,dy,dz,rx,ry,rz (например 1:True,False,True,False,False,False)",
+        nargs="*",
         default=[],
+        help="Закрепления узлов в формате node_id:dx,dy,dz,rx,ry,rz",
     )
-
     args = parser.parse_args()
 
-    # Загружаем геометрию из CSV
     csv_path = Path(args.csv_file)
     if not csv_path.exists():
-        print(f"Ошибка: Файл {csv_path} не найден")
-        return
+        raise SystemExit(f"Ошибка: файл {csv_path} не найден.")
 
-    print(f"Загрузка геометрии из {csv_path}...")
-    edges = load_edges_from_csv(str(csv_path))
-    print(f"Загружено {len(edges)} ребер")
+    tables = prepare_ui_tables(csv_path)
+    node_props = tables.node_properties.copy()
 
-    # Создаем модель
-    model = WagonModel()
-    model.from_edges(edges)
-    print(f"Создано {len(model.nodes)} узлов и {len(model.elements)} элементов")
-
-    # Применяем закрепления
     for support_def in args.supports:
-        try:
-            node_id_str, supports_str = support_def.split(":")
-            node_id = int(node_id_str)
-            supports = [s.strip().lower() == "true" for s in supports_str.split(",")]
-            if len(supports) != 6:
-                print(f"Ошибка: Для узла {node_id} указано {len(supports)} степеней свободы (ожидалось 6)")
-                continue
-            model.apply_support(node_id, *supports)
-            print(f"Применено закрепление к узлу {node_id}: {supports}")
-        except ValueError as e:
-            print(f"Ошибка разбора закрепления '{support_def}': {e}")
+        node_id_str, raw_flags = support_def.split(":", 1)
+        flags = _parse_support_flags(raw_flags)
+        node_mask = node_props["node_id"].astype(str) == node_id_str
+        if not node_mask.any():
+            raise SystemExit(f"Ошибка: узел {node_id_str} отсутствует в модели.")
+        for column, value in zip(
+            ["support_dx", "support_dy", "support_dz", "support_rx", "support_ry", "support_rz"],
+            flags,
+        ):
+            node_props.loc[node_mask, column] = value
 
-    # Если закрепления не были указаны явно, применяем стандартные (опоры по углам)
-    if not args.supports:
-        # Находим минимальные и максимальные координаты для определения опор
-        nodes_list = list(model.nodes.values())
-        if nodes_list:
-            # Закрепляем первые 4 узла как опоры (упрощенно)
-            sorted_nodes = sorted(nodes_list, key=lambda n: (n.x, n.z))
-            if len(sorted_nodes) >= 4:
-                # Закрепляем 4 угловых узла
-                for i, node in enumerate(sorted_nodes[:4]):
-                    model.apply_support(node.id, dx=True, dy=True, dz=True, rx=False, ry=False, rz=False)
-                    print(f"Автоматически закреплен узел {node.id} (DX, DY, DZ)")
+    result = analyze_model(
+        source=csv_path,
+        node_properties=node_props,
+        model_nodes=tables.nodes,
+        model_edges=tables.edges,
+        options=AnalysisOptions(use_plotly=False),
+    )
 
-    # Выполняем расчет
-    print("\nВыполнение расчета...")
-    results = solve_and_get_moments(model)
-
-    # Выводим результаты
-    print_results(results)
+    print(result.status_text)
+    print()
+    print("Таблица моментов:")
+    print(result.moments_table.to_string(index=False))
+    print()
+    print("Таблица перемещений:")
+    print(result.displacements_table.to_string(index=False))
 
 
 if __name__ == "__main__":
