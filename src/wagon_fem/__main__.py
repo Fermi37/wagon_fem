@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .services import AnalysisOptions, analyze_model, prepare_ui_tables
+from .services import AnalysisOptions, DEFAULT_MODEL_RELATIVE_PATH, analyze_model, prepare_ui_tables
 
 
 def _parse_support_flags(raw: str) -> list[bool]:
@@ -15,7 +15,13 @@ def _parse_support_flags(raw: str) -> list[bool]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="FEM расчет конструкции вагона")
-    parser.add_argument("csv_file", type=str, help="Путь к CSV файлу модели")
+    parser.add_argument(
+        "csv_file",
+        type=str,
+        nargs="?",
+        default=DEFAULT_MODEL_RELATIVE_PATH,
+        help=f"Путь к CSV файлу модели. По умолчанию: {DEFAULT_MODEL_RELATIVE_PATH}",
+    )
     parser.add_argument(
         "--supports",
         type=str,

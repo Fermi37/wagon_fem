@@ -8,6 +8,7 @@ import gradio as gr
 
 from .services import (
     AnalysisOptions,
+    DEFAULT_MODEL_RELATIVE_PATH,
     analyze_model,
     load_guide_markdown,
     prepare_ui_tables,
@@ -147,6 +148,7 @@ def build_demo() -> gr.Blocks:
     with gr.Blocks(title="Wagon FEM Analysis", css=APP_CSS) as demo:
         gr.Markdown("# Wagon FEM Analysis")
         gr.Markdown("Upload geometry, review task data, run the solver, and inspect exports.")
+        gr.Markdown(f"Default model data: `{DEFAULT_MODEL_RELATIVE_PATH}`")
 
         with gr.Tabs():
             with gr.Tab("Main"):

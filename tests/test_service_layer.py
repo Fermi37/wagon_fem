@@ -6,8 +6,10 @@ import pytest
 from wagon_fem.model import create_simply_supported_beam
 from wagon_fem.services import (
     AnalysisOptions,
+    _split_edges_and_task_members,
     analyze_model,
     load_guide_markdown,
+    prepare_model_tables,
     prepare_ui_tables,
     render_legend_html,
     render_metric_reference_html,
@@ -39,6 +41,16 @@ def test_prepare_ui_tables_populates_task_and_geometry_tables():
     assert "dist_dir" in tables.task_members.columns
 
 
+def test_split_edges_preserves_uniform_load_without_forcing_zero_end_values():
+    _, raw_edges = prepare_model_tables(Path("data/wagon_frame.csv"))
+    _, task_members = _split_edges_and_task_members(raw_edges)
+
+    first_row = task_members.iloc[0]
+    assert first_row["w"] == -10.0
+    assert pd.isna(first_row["w1"])
+    assert pd.isna(first_row["w2"])
+
+
 def test_analyze_model_returns_expected_ui_payload_shape():
     tables = prepare_ui_tables(Path("data/wagon_frame.csv"))
     options = AnalysisOptions(result_metric="Mz")
@@ -67,6 +79,8 @@ def test_analyze_model_returns_expected_ui_payload_shape():
     assert not hasattr(result, "viewer_summary")
     assert isinstance(result.task_nodes, pd.DataFrame)
     assert isinstance(result.task_members, pd.DataFrame)
+    assert result.moments_table["Max_Mz"].abs().max() > 0.0
+    assert result.displacements_table[["Dx", "Dy", "Dz"]].abs().to_numpy().max() > 0.0
 
 
 @pytest.mark.parametrize(
@@ -158,7 +172,8 @@ def test_render_legend_html_contains_tick_labels():
     assert "-1.2e+03" in html or "-1200" in html
     assert "3.4e+03" in html or "3400" in html
     assert "legend-overlay" in html
-    assert "color:#000" in html
+    assert "color:#000 !important" in html
+    assert "opacity:1 !important" in html
 
 
 def test_render_metric_reference_html_contains_compact_metric_list():
@@ -169,6 +184,8 @@ def test_render_metric_reference_html_contains_compact_metric_list():
     assert "Axial" in html
     assert "Dx" in html
     assert "RxnFY" in html
+    assert "color:#000 !important" in html
+    assert "opacity:1 !important" in html
 
 
 def test_task_node_validation_fails_for_missing_support_columns():

@@ -110,3 +110,7 @@ def test_ui_module_uses_overlay_css_and_no_viewer_summary():
     assert "#viewer-legend" in ui.APP_CSS
     assert "position: absolute" in ui.APP_CSS
     assert "Viewer summary" not in Path(ui.__file__).read_text(encoding="utf-8")
+
+
+def test_ui_module_announces_default_model_path():
+    assert ui.DEFAULT_MODEL_RELATIVE_PATH == "data/wagon_frame.csv"

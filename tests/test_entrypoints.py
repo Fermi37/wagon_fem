@@ -27,3 +27,15 @@ def test_python_m_wagon_fem_runs_on_csv():
 
     assert result.returncode == 0
     assert "Максимальный момент" in result.stdout
+
+
+def test_python_m_wagon_fem_runs_with_default_csv():
+    result = subprocess.run(
+        [sys.executable, "-m", "wagon_fem"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+    assert "Максимальный момент" in result.stdout

@@ -23,6 +23,8 @@ from .solver import get_displacements_table, get_moments_table, run_analysis
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_MODEL_RELATIVE_PATH = "data/wagon_frame.csv"
+
 
 @dataclass(slots=True)
 class AnalysisOptions:
@@ -195,7 +197,7 @@ def resolve_input_path(source: Any) -> str | None:
 
 
 def _default_model_path() -> str | None:
-    path = Path(__file__).resolve().parents[2] / "data" / "wagon_frame.csv"
+    path = Path(__file__).resolve().parents[2] / DEFAULT_MODEL_RELATIVE_PATH
     return str(path) if path.exists() else None
 
 
@@ -222,6 +224,19 @@ def _safe_float(value: Any, default: float = 0.0) -> float:
         return default
     if value == "":
         return default
+    return float(value)
+
+
+def _nullable_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        if pd.isna(value):
+            return None
+    except Exception:
+        pass
+    if value == "":
+        return None
     return float(value)
 
 
@@ -338,9 +353,9 @@ def _split_edges_and_task_members(edges_df: pd.DataFrame) -> tuple[pd.DataFrame,
         task_rows.append(
             {
                 "edge_id": row.get(edge_key),
-                "w": _safe_float(row.get("w"), 0.0),
-                "w1": _safe_float(row.get("w1"), 0.0),
-                "w2": _safe_float(row.get("w2"), 0.0),
+                "w": _nullable_float(row.get("w")),
+                "w1": _nullable_float(row.get("w1")),
+                "w2": _nullable_float(row.get("w2")),
                 "dist_dir": row.get("dist_dir") or row.get("dir") or row.get("load_dir") or row.get("dist_load_dir") or "FY",
             }
         )
@@ -734,6 +749,9 @@ def build_model3d_asset(
 def render_legend_html(legend: dict[str, Any], colormap: str) -> str:
     if not legend.get("scale_visible", False):
         return (
+            '<style>'
+            '.legend-box,.legend-box *{color:#000 !important;opacity:1 !important;text-shadow:none !important;}'
+            '</style>'
             '<div class="legend-box legend-overlay" '
             'style="border:1px solid #cfd8e3;padding:12px;border-radius:14px;'
             'background:rgba(255,255,255,0.96);color:#000;box-shadow:0 10px 24px rgba(15,23,42,0.14);">'
@@ -751,18 +769,29 @@ def render_legend_html(legend: dict[str, Any], colormap: str) -> str:
     else:
         tick_values = [min_value + (max_value - min_value) * frac for frac in (0.0, 0.25, 0.5, 0.75, 1.0)]
     tick_labels = "".join(
-        f'<span style="flex:1;text-align:{align};">{value:.3g}</span>'
-        for value, align in zip(tick_values, ["left", "center", "center", "center", "right"])
+        f'<span style="flex:1;text-align:{align};padding:{padding};font-weight:600;color:#000 !important;opacity:1 !important;">{value:.3g}</span>'
+        for value, align, padding in zip(
+            tick_values,
+            ["left", "center", "center", "center", "right"],
+            ["0 10px 0 2px", "0 4px", "0 4px", "0 4px", "0 2px 0 10px"],
+        )
     )
     return f'''
+<style>
+.legend-box,.legend-box * {{
+  color:#000 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}}
+</style>
 <div class="legend-box legend-overlay" style="border:1px solid #cfd8e3;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.96);max-width:460px;color:#000;box-shadow:0 10px 24px rgba(15,23,42,0.14);">
-  <div style="font-weight:700;margin-bottom:8px;color:#000;">Legend</div>
-  <div style="font-size:13px;margin-bottom:8px;color:#000;">{legend['label']} ({legend['entity_type']})</div>
-  <div style="height:18px;border-radius:999px;background:linear-gradient(90deg, {stops});margin-bottom:10px;"></div>
-  <div class="legend-ticks" style="display:flex;gap:4px;font-size:11px;color:#000;margin-bottom:10px;">{tick_labels}</div>
-  <div style="display:flex;justify-content:space-between;font-size:12px;gap:12px;color:#000;">
-    <span>min: {min_value:.3g} {units}</span>
-    <span>max: {max_value:.3g} {units}</span>
+  <div style="font-weight:800;font-size:15px;margin-bottom:8px;color:#000 !important;">Legend</div>
+  <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#000 !important;">{legend['label']} ({legend['entity_type']})</div>
+  <div style="height:18px;border-radius:999px;background:linear-gradient(90deg, {stops});margin-bottom:8px;"></div>
+  <div class="legend-ticks" style="display:flex;gap:0;font-size:12px;line-height:1.2;background:rgba(255,255,255,0.88);border-radius:10px;padding:6px 4px;margin-bottom:10px;color:#000 !important;">{tick_labels}</div>
+  <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;gap:12px;color:#000 !important;">
+    <span style="padding-right:8px;">min: {min_value:.3g} {units}</span>
+    <span style="padding-left:8px;text-align:right;">max: {max_value:.3g} {units}</span>
   </div>
 </div>
 '''
@@ -800,17 +829,30 @@ def render_metric_reference_html() -> str:
         if metric == "None":
             continue
         rows.append(
-            f"<tr><td style='padding:2px 8px 2px 0;font-weight:600;'>{metric}</td>"
-            f"<td style='padding:2px 8px;color:#556;'>{spec['entity_type']}</td>"
-            f"<td style='padding:2px 0;color:#556;'>{spec['units']}</td></tr>"
+            f"<tr>"
+            f"<td style='padding:4px 8px 4px 0;font-weight:700;color:#000 !important;opacity:1 !important;'>{metric}</td>"
+            f"<td style='padding:4px 8px;color:#000 !important;opacity:1 !important;'>{spec['entity_type']}</td>"
+            f"<td style='padding:4px 0;color:#000 !important;opacity:1 !important;'>{spec['units']}</td>"
+            f"</tr>"
         )
     body = "".join(rows)
     return f'''
-<div style="border:1px solid #d8e0ea;border-radius:10px;padding:10px 12px;background:#fbfcfe;max-width:420px;">
-  <div style="font-weight:700;margin-bottom:6px;">Available metrics</div>
-  <table style="width:100%;border-collapse:collapse;font-size:12px;">
+<style>
+.metric-reference,.metric-reference * {{
+  color:#000 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}}
+</style>
+<div class="metric-reference" style="border:1px solid #d8e0ea;border-radius:10px;padding:10px 12px;background:rgba(255,255,255,0.98);max-width:420px;color:#000 !important;">
+  <div style="font-weight:800;margin-bottom:6px;color:#000 !important;">Available metrics</div>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;color:#000 !important;">
     <thead>
-      <tr><th style="text-align:left;padding:2px 8px 4px 0;">Metric</th><th style="text-align:left;padding:2px 8px 4px 0;">Type</th><th style="text-align:left;padding:2px 0 4px 0;">Units</th></tr>
+      <tr>
+        <th style="text-align:left;padding:2px 8px 4px 0;color:#000 !important;font-weight:800;">Metric</th>
+        <th style="text-align:left;padding:2px 8px 4px 0;color:#000 !important;font-weight:800;">Type</th>
+        <th style="text-align:left;padding:2px 0 4px 0;color:#000 !important;font-weight:800;">Units</th>
+      </tr>
     </thead>
     <tbody>{body}</tbody>
   </table>
