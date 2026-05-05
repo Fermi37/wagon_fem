@@ -13,6 +13,7 @@ from .services import (
     prepare_ui_tables,
     render_legend_html,
     render_metric_reference_html,
+    render_viewer_payload,
     save_model_csv,
 )
 
@@ -118,6 +119,27 @@ def run_analysis_for_ui(
         result.task_members,
         result.model,
     )
+
+
+def update_viewer_for_ui(
+    model: Any,
+    show_deformed: bool,
+    scale: float,
+    result_metric: str,
+    show_colorbar: bool,
+    colormap: str,
+    sample_resolution: int,
+):
+    options = AnalysisOptions(
+        show_deformed=show_deformed,
+        scale=scale,
+        result_metric=result_metric,
+        show_colorbar=show_colorbar,
+        colormap=colormap,
+        sample_resolution=sample_resolution,
+    )
+    viewer_model_path, viewer_legend = render_viewer_payload(model, options)
+    return viewer_model_path, render_legend_html(viewer_legend, colormap)
 
 
 def build_demo() -> gr.Blocks:
@@ -228,6 +250,30 @@ def build_demo() -> gr.Blocks:
             outputs=[export_model_file],
             queue=False,
         )
+
+        viewer_controls = [
+            show_deformed_ck,
+            scale_slider,
+            result_metric_dd,
+            show_colorbar_ck,
+            colormap_dd,
+            sample_res,
+        ]
+        for component in viewer_controls:
+            component.change(
+                fn=update_viewer_for_ui,
+                inputs=[
+                    model_state,
+                    show_deformed_ck,
+                    scale_slider,
+                    result_metric_dd,
+                    show_colorbar_ck,
+                    colormap_dd,
+                    sample_res,
+                ],
+                outputs=[viewer_model, legend_html],
+                queue=False,
+            )
     return demo
 
 

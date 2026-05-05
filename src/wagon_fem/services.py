@@ -768,6 +768,32 @@ def render_legend_html(legend: dict[str, Any], colormap: str) -> str:
 '''
 
 
+def render_viewer_payload(model: Any, options: AnalysisOptions) -> tuple[str | None, dict[str, Any]]:
+    if model is None:
+        return None, {
+            "metric": "None",
+            "label": "Neutral",
+            "units": "",
+            "entity_type": "neutral",
+            "min": None,
+            "max": None,
+            "scale_visible": False,
+        }
+
+    viewer_model_path, viewer_legend = build_model3d_asset(
+        model,
+        show_deformed=options.show_deformed,
+        scale=options.scale,
+        result_metric=options.result_metric,
+        colormap=options.colormap,
+        sample_resolution=options.sample_resolution,
+    )
+    if not options.show_colorbar:
+        viewer_legend = dict(viewer_legend)
+        viewer_legend["scale_visible"] = False
+    return viewer_model_path, viewer_legend
+
+
 def render_metric_reference_html() -> str:
     rows = []
     for metric, spec in RESULT_METRIC_SPECS.items():
@@ -886,14 +912,7 @@ def analyze_model(source: Any, task_nodes: Any, task_members: Any, model_nodes: 
     solved_model = run_analysis(model)
     moments_table = get_moments_table(solved_model)
     displacements_table = get_displacements_table(solved_model)
-    viewer_model_path, viewer_legend = build_model3d_asset(
-        solved_model,
-        show_deformed=options.show_deformed,
-        scale=options.scale,
-        result_metric=options.result_metric,
-        colormap=options.colormap,
-        sample_resolution=options.sample_resolution,
-    )
+    viewer_model_path, viewer_legend = render_viewer_payload(solved_model, options)
 
     max_mz = float(moments_table["Max_Mz"].max()) if not moments_table.empty and "Max_Mz" in moments_table.columns else 0.0
     status_text = (

@@ -4,7 +4,15 @@ import pandas as pd
 import pytest
 
 from wagon_fem.model import create_simply_supported_beam
-from wagon_fem.services import AnalysisOptions, analyze_model, load_guide_markdown, prepare_ui_tables, render_legend_html, render_metric_reference_html
+from wagon_fem.services import (
+    AnalysisOptions,
+    analyze_model,
+    load_guide_markdown,
+    prepare_ui_tables,
+    render_legend_html,
+    render_metric_reference_html,
+    render_viewer_payload,
+)
 from wagon_fem.solver import get_moments_table, run_analysis
 
 
@@ -107,6 +115,27 @@ def test_none_metric_hides_numeric_scale():
 
     assert result.viewer_legend["metric"] == "None"
     assert result.viewer_legend["scale_visible"] is False
+
+
+def test_render_viewer_payload_hides_scale_when_requested():
+    tables = prepare_ui_tables(Path("data/wagon_frame.csv"))
+    result = analyze_model(
+        source=Path("data/wagon_frame.csv"),
+        task_nodes=tables.task_nodes,
+        task_members=tables.task_members,
+        model_nodes=tables.nodes,
+        model_edges=tables.edges,
+        options=AnalysisOptions(result_metric="Mz"),
+    )
+
+    viewer_model_path, legend = render_viewer_payload(
+        result.model,
+        AnalysisOptions(result_metric="Mz", show_colorbar=False),
+    )
+
+    assert viewer_model_path is not None
+    assert Path(viewer_model_path).exists()
+    assert legend["scale_visible"] is False
 
 
 def test_render_legend_html_contains_tick_labels():

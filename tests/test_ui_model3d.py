@@ -43,6 +43,57 @@ def test_run_analysis_for_ui_returns_model3d_payload():
     assert "color:#000" in legend_html
 
 
+def test_update_viewer_for_ui_reacts_to_control_changes():
+    tables = prepare_ui_tables(Path("data/wagon_frame.csv"))
+    result = analyze_model(
+        source=Path("data/wagon_frame.csv"),
+        task_nodes=tables.task_nodes,
+        task_members=tables.task_members,
+        model_nodes=tables.nodes,
+        model_edges=tables.edges,
+        options=AnalysisOptions(result_metric="Mz", colormap="viridis"),
+    )
+
+    viewer_model_path, legend_html = ui.update_viewer_for_ui(
+        result.model,
+        False,
+        25.0,
+        "Dx",
+        True,
+        "plasma",
+        21,
+    )
+
+    assert viewer_model_path.endswith(".gltf")
+    assert Path(viewer_model_path).exists()
+    assert "Dx" in legend_html
+    assert "linear-gradient(90deg" in legend_html
+
+
+def test_update_viewer_for_ui_hides_scale_when_colorbar_disabled():
+    tables = prepare_ui_tables(Path("data/wagon_frame.csv"))
+    result = analyze_model(
+        source=Path("data/wagon_frame.csv"),
+        task_nodes=tables.task_nodes,
+        task_members=tables.task_members,
+        model_nodes=tables.nodes,
+        model_edges=tables.edges,
+        options=AnalysisOptions(result_metric="Mz"),
+    )
+
+    _, legend_html = ui.update_viewer_for_ui(
+        result.model,
+        True,
+        100.0,
+        "Mz",
+        False,
+        "viridis",
+        11,
+    )
+
+    assert "Neutral rendering mode" in legend_html
+
+
 def test_ui_module_exposes_viewer_metric_choices():
     assert "Mz" in ui.RESULT_METRIC_CHOICES
     assert "Axial" in ui.RESULT_METRIC_CHOICES
