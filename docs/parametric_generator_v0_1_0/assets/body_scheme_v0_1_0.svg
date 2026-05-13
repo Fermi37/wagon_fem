@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Clean parametric beam scheme of a wagon body with trapezoidal roof</title>
+  <desc id="desc">Technical SVG illustration showing plan view, side-wall view, and cross section of the proposed parametric wagon body beam model with a low trapezoidal roof and an unobstructed legend.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .title { font-family: Arial, sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #1e293b; }
+      .label { font-family: Arial, sans-serif; font-size: 16px; fill: #1e293b; }
+      .small { font-family: Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .tiny { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
+      .dimension { stroke: #64748b; stroke-width: 2; marker-start: url(#arrowDim); marker-end: url(#arrowDim); }
+      .center { stroke: #0f766e; stroke-width: 8; stroke-linecap: round; }
+      .side { stroke: #2563eb; stroke-width: 6; stroke-linecap: round; }
+      .cross { stroke: #7c3aed; stroke-width: 5; stroke-linecap: round; }
+      .wall { stroke: #dc2626; stroke-width: 5; stroke-linecap: round; }
+      .belt { stroke: #ea580c; stroke-width: 5; stroke-linecap: round; }
+      .roof { stroke: #0891b2; stroke-width: 5; stroke-linecap: round; }
+      .tie { stroke: #64748b; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 8; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+      .legendText { font-family: Arial, sans-serif; font-size: 13px; fill: #334155; }
+    </style>
+    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    </marker>
+    <marker id="arrowDim" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M1,5 L9,1 L7,5 L9,9 Z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1120" />
+  <text class="title" x="55" y="52">Parametric Beam Scheme for Wagon Body Generator v0.1.0</text>
+  <text class="small" x="55" y="82">Beam-only topology for first-stage member force and bending moment calculations in wagon_fem.</text>
+
+  <g id="line-type-legend">
+    <text class="subtitle" x="55" y="116">Line types</text>
+    <line class="center" x1="175" y1="110" x2="235" y2="110" /><text class="legendText" x="248" y="114">center sill</text>
+    <line class="cross" x1="350" y1="110" x2="410" y2="110" /><text class="legendText" x="423" y="114">bolster and cross beams</text>
+    <line class="side" x1="620" y1="110" x2="680" y2="110" /><text class="legendText" x="693" y="114">side longitudinal</text>
+    <line class="wall" x1="835" y1="110" x2="895" y2="110" /><text class="legendText" x="908" y="114">posts</text>
+    <line class="belt" x1="1000" y1="110" x2="1060" y2="110" /><text class="legendText" x="1073" y="114">wall belts</text>
+    <line class="roof" x1="1190" y1="110" x2="1250" y2="110" /><text class="legendText" x="1263" y="114">roof members</text>
+    <line class="tie" x1="1390" y1="110" x2="1450" y2="110" /><text class="legendText" x="1463" y="114">equivalent ties</text>
+  </g>
+
+  <rect class="panel" x="40" y="140" width="980" height="430" rx="8" />
+  <text class="subtitle" x="75" y="178">Plan view: frame topology in the x-z plane</text>
+
+  <line class="axis" x1="95" y1="520" x2="210" y2="520" />
+  <line class="axis" x1="95" y1="520" x2="95" y2="430" />
+  <text class="label" x="218" y="525">x</text>
+  <text class="label" x="86" y="420">z</text>
+
+  <line class="dimension" x1="250" y1="230" x2="900" y2="230" />
+  <text class="label" x="568" y="218">L</text>
+  <line class="dimension" x1="930" y1="275" x2="930" y2="455" />
+  <text class="label" x="942" y="370">B</text>
+
+  <line class="side" x1="250" y1="275" x2="900" y2="275" />
+  <line class="center" x1="250" y1="365" x2="900" y2="365" />
+  <line class="side" x1="250" y1="455" x2="900" y2="455" />
+
+  <line class="cross" x1="250" y1="275" x2="250" y2="455" />
+  <line class="cross" x1="365" y1="275" x2="365" y2="455" />
+  <line class="cross" x1="480" y1="275" x2="480" y2="455" />
+  <line class="cross" x1="595" y1="275" x2="595" y2="455" />
+  <line class="cross" x1="710" y1="275" x2="710" y2="455" />
+  <line class="cross" x1="810" y1="275" x2="810" y2="455" />
+  <line class="cross" x1="900" y1="275" x2="900" y2="455" />
+
+  <line class="tie" x1="250" y1="365" x2="365" y2="275" />
+  <line class="tie" x1="250" y1="365" x2="365" y2="455" />
+  <line class="tie" x1="900" y1="365" x2="810" y2="275" />
+  <line class="tie" x1="900" y1="365" x2="810" y2="455" />
+
+  <g>
+    <circle class="node" cx="250" cy="275" r="6" /><circle class="node" cx="365" cy="275" r="6" /><circle class="node" cx="480" cy="275" r="6" />
+    <circle class="node" cx="595" cy="275" r="6" /><circle class="node" cx="710" cy="275" r="6" /><circle class="node" cx="810" cy="275" r="6" /><circle class="node" cx="900" cy="275" r="6" />
+    <circle class="node" cx="250" cy="365" r="6" /><circle class="node" cx="365" cy="365" r="6" /><circle class="node" cx="480" cy="365" r="6" />
+    <circle class="node" cx="595" cy="365" r="6" /><circle class="node" cx="710" cy="365" r="6" /><circle class="node" cx="810" cy="365" r="6" /><circle class="node" cx="900" cy="365" r="6" />
+    <circle class="node" cx="250" cy="455" r="6" /><circle class="node" cx="365" cy="455" r="6" /><circle class="node" cx="480" cy="455" r="6" />
+    <circle class="node" cx="595" cy="455" r="6" /><circle class="node" cx="710" cy="455" r="6" /><circle class="node" cx="810" cy="455" r="6" /><circle class="node" cx="900" cy="455" r="6" />
+  </g>
+
+  <rect class="panel" x="40" y="615" width="980" height="420" rx="8" />
+  <text class="subtitle" x="75" y="653">Side view: open-wagon wall topology in the x-y plane</text>
+
+  <line class="axis" x1="95" y1="965" x2="210" y2="965" />
+  <line class="axis" x1="95" y1="965" x2="95" y2="860" />
+  <text class="label" x="218" y="970">x</text>
+  <text class="label" x="86" y="850">y</text>
+
+  <line class="dimension" x1="925" y1="750" x2="925" y2="940" />
+  <text class="label" x="940" y="850">H</text>
+
+  <line class="belt" x1="250" y1="940" x2="900" y2="940" />
+  <line class="belt" x1="250" y1="845" x2="900" y2="845" />
+  <line class="belt" x1="250" y1="750" x2="900" y2="750" />
+
+  <line class="wall" x1="250" y1="750" x2="250" y2="940" />
+  <line class="wall" x1="365" y1="750" x2="365" y2="940" />
+  <line class="wall" x1="480" y1="750" x2="480" y2="940" />
+  <line class="wall" x1="595" y1="750" x2="595" y2="940" />
+  <line class="wall" x1="710" y1="750" x2="710" y2="940" />
+  <line class="wall" x1="810" y1="750" x2="810" y2="940" />
+  <line class="wall" x1="900" y1="750" x2="900" y2="940" />
+
+  <line class="tie" x1="250" y1="940" x2="365" y2="845" />
+  <line class="tie" x1="250" y1="845" x2="365" y2="750" />
+  <line class="tie" x1="365" y1="940" x2="480" y2="845" />
+  <line class="tie" x1="365" y1="845" x2="480" y2="750" />
+  <line class="tie" x1="480" y1="940" x2="595" y2="845" />
+  <line class="tie" x1="480" y1="845" x2="595" y2="750" />
+  <line class="tie" x1="595" y1="940" x2="710" y2="845" />
+  <line class="tie" x1="595" y1="845" x2="710" y2="750" />
+  <line class="tie" x1="710" y1="940" x2="810" y2="845" />
+  <line class="tie" x1="710" y1="845" x2="810" y2="750" />
+  <line class="tie" x1="810" y1="940" x2="900" y2="845" />
+  <line class="tie" x1="810" y1="845" x2="900" y2="750" />
+
+  <g>
+    <circle class="node" cx="250" cy="750" r="6" /><circle class="node" cx="365" cy="750" r="6" /><circle class="node" cx="480" cy="750" r="6" />
+    <circle class="node" cx="595" cy="750" r="6" /><circle class="node" cx="710" cy="750" r="6" /><circle class="node" cx="810" cy="750" r="6" /><circle class="node" cx="900" cy="750" r="6" />
+    <circle class="node" cx="250" cy="845" r="6" /><circle class="node" cx="365" cy="845" r="6" /><circle class="node" cx="480" cy="845" r="6" />
+    <circle class="node" cx="595" cy="845" r="6" /><circle class="node" cx="710" cy="845" r="6" /><circle class="node" cx="810" cy="845" r="6" /><circle class="node" cx="900" cy="845" r="6" />
+    <circle class="node" cx="250" cy="940" r="6" /><circle class="node" cx="365" cy="940" r="6" /><circle class="node" cx="480" cy="940" r="6" />
+    <circle class="node" cx="595" cy="940" r="6" /><circle class="node" cx="710" cy="940" r="6" /><circle class="node" cx="810" cy="940" r="6" /><circle class="node" cx="900" cy="940" r="6" />
+  </g>
+
+  <rect class="panel" x="1060" y="140" width="500" height="895" rx="8" />
+  <text class="subtitle" x="1095" y="178">Cross section: y-z plane</text>
+
+  <line class="axis" x1="1130" y1="960" x2="1238" y2="960" />
+  <line class="axis" x1="1130" y1="960" x2="1130" y2="850" />
+  <text class="label" x="1248" y="965">z</text>
+  <text class="label" x="1121" y="840">y</text>
+
+  <line class="dimension" x1="1185" y1="770" x2="1435" y2="770" />
+  <text class="label" x="1304" y="758">B</text>
+  <line class="dimension" x1="1485" y1="430" x2="1485" y2="890" />
+  <text class="label" x="1516" y="665" text-anchor="middle" transform="rotate(-90 1516 665)">H + roof height</text>
+
+  <line class="cross" x1="1185" y1="890" x2="1435" y2="890" />
+  <line class="wall" x1="1185" y1="890" x2="1185" y2="600" />
+  <line class="wall" x1="1435" y1="890" x2="1435" y2="600" />
+  <line class="belt" x1="1185" y1="600" x2="1435" y2="600" />
+  <line class="belt" x1="1185" y1="745" x2="1435" y2="745" />
+  <line class="roof" x1="1185" y1="600" x2="1245" y2="515" />
+  <line class="roof" x1="1245" y1="515" x2="1375" y2="515" />
+  <line class="roof" x1="1375" y1="515" x2="1435" y2="600" />
+
+  <circle class="node" cx="1185" cy="890" r="6" />
+  <circle class="node" cx="1435" cy="890" r="6" />
+  <circle class="node" cx="1185" cy="600" r="6" />
+  <circle class="node" cx="1435" cy="600" r="6" />
+  <circle class="node" cx="1245" cy="515" r="6" />
+  <circle class="node" cx="1375" cy="515" r="6" />
+
+  <text class="tiny" x="55" y="1090">Generated as editable SVG for docs/parametric_generator_v0_1_0. Values and proportions are schematic; implementation must use parameterized coordinates.</text>
+</svg>

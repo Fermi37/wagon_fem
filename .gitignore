@@ -1,3 +1,5 @@
 (data/wagon_frame.csv, src/wagon_fem/fem.py, src/wagon_fem/loader.py, src/wagon_fem/model.py, src/wagon_fem/solver.py)
 
 (src/wagon_fem/__init__.py, src/wagon_fem/__main__.py)
+
+!tests/fixtures/parametric/*.csv

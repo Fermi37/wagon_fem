@@ -1,0 +1,230 @@
+# Parameter Contract
+
+## Purpose
+
+The parameter contract defines a stable input structure for tank-car beam-model generation while preserving the shared generator style introduced in `v0.1.0`.
+
+## Top-Level Fields
+
+```yaml
+wagon_type: tank_wagon
+metadata: {}
+geometry: {}
+tank: {}
+frame: {}
+layout: {}
+attachments: {}
+sections: {}
+loads: {}
+supports: {}
+generation: {}
+```
+
+`wagon_type` selects the topology generator. Version `0.3.0` introduces `tank_wagon`.
+
+## Metadata
+
+```yaml
+metadata:
+  name: four_axle_general_purpose_tank_reference
+  source_note: krv_10_general_purpose_tank_car
+  units: mm_N
+```
+
+`mm_N` means millimeters and newtons as the unit basis.
+
+## Global Geometry
+
+```yaml
+geometry:
+  length_over_coupler_axes: 12020
+  frame_length: 12020
+  truck_base: 7800
+  bolster_positions: [2110, 9910]
+  end_positions: [0, 12020]
+  frame_width: 3000
+  coupler_axis_y: 1060
+  rail_head_y: -1060
+```
+
+The generator should derive missing symmetric positions from `frame_length` and `truck_base` when the parameter file supplies only one of these values.
+
+## Tank Geometry
+
+```yaml
+tank:
+  length: 10818
+  diameter: 3000
+  radius: 1500
+  center_y: 2380
+  center_z: 0
+  x_start: 601
+  x_end: 11419
+  end_shape: spherical_dish
+  bottom_slope_to_drain: true
+  drain_x: 6010
+  manhole_x: 6010
+  angular_divisions: 8
+  ring_pitch: 900
+  extra_ring_positions: [2110, 6010, 9910]
+```
+
+If `radius` is omitted, it should be computed as `diameter / 2`.
+
+## Frame Parameters
+
+```yaml
+frame:
+  center_sill_z: 0
+  center_sill_y: 0
+  side_beam_z: [-1350, 1350]
+  side_beam_y: 0
+  include_side_beams: true
+  include_intermediate_cross_beams: true
+  include_console_side_beams: true
+  draft_gear_length: 900
+```
+
+## Layout Parameters
+
+```yaml
+layout:
+  cross_beam_pitch: 1000
+  tank_ring_pitch: 900
+  angular_divisions: 8
+  include_frame_diagonals: true
+  include_tank_end_spokes: true
+  include_tank_top_stringer: true
+  include_tank_bottom_stringer: true
+```
+
+The implementation should treat `layout.tank_ring_pitch` as the preferred value when both `tank.ring_pitch` and `layout.tank_ring_pitch` are present.
+
+## Attachments
+
+```yaml
+attachments:
+  middle_lugs:
+    - x: 6010
+      angular_position_deg: 270
+      connect_to: center_sill
+      longitudinal_lock: true
+  saddles:
+    - x: 2110
+      angular_span_deg: [225, 315]
+      connect_to: bolster_beam
+      allow_longitudinal_slip: true
+    - x: 6010
+      angular_span_deg: [235, 305]
+      connect_to: center_sill
+      allow_longitudinal_slip: false
+    - x: 9910
+      angular_span_deg: [225, 315]
+      connect_to: bolster_beam
+      allow_longitudinal_slip: true
+  straps:
+    enabled: true
+    stations: [2110, 9910]
+    angular_anchor_deg: [210, 330]
+```
+
+The `allow_longitudinal_slip` field should be exported in metadata during the first implementation. A later solver layer can convert this field into releases or constraint equations.
+
+## Sections
+
+```yaml
+sections:
+  default_E: 210000
+  catalog: first_stage_tank_v0.3.0
+  center_sill: center_sill_heavy
+  bolster_beam: bolster_beam_heavy
+  end_beam: end_beam_medium
+  cross_beam: cross_beam_medium
+  side_beam: side_longitudinal_medium
+  tank_longitudinal: tank_shell_equiv
+  tank_ring: tank_ring_equiv
+  tank_end_ring: tank_ring_equiv
+  saddle_support: rigid_offset_stub
+  strap_tie: diagonal_tie_equiv
+  support_pad_stub: rigid_offset_stub
+  draft_gear_stub: center_sill_heavy
+```
+
+The first implementation may reuse the existing first-stage section catalog and add semantic aliases. Calibration of these values belongs to a later section-library task.
+
+## Loads
+
+```yaml
+loads:
+  tank_self_weight:
+    enabled: true
+    total_force: -78000
+    distribute_to: tank_bottom_generators
+    dist_dir: FY
+  payload:
+    enabled: true
+    total_force: -647000
+    fill_level: 0.95
+    distribute_to: tank_lattice
+    dist_dir: FY
+  longitudinal_end_load:
+    enabled: false
+    force: 1000000
+    apply_at: draft_gear
+    direction: FX
+  lateral_inertial_load:
+    enabled: false
+    coefficient_g: 0.3
+    direction: FZ
+```
+
+`FY` means force along the global vertical axis. `FX` means force along the global longitudinal axis. `FZ` means force along the global transverse axis.
+
+## Supports
+
+```yaml
+supports:
+  scheme: two_bolster_with_reference_lock
+  support_points:
+    - x: 2110
+      y: 0
+      z: -750
+      dy: true
+      dz: true
+    - x: 2110
+      y: 0
+      z: 750
+      dy: true
+    - x: 9910
+      y: 0
+      z: -750
+      dy: true
+      dz: true
+    - x: 9910
+      y: 0
+      z: 750
+      dy: true
+  reference_restraints:
+    primary_x: 2110
+    lock_dx: true
+    lock_rigid_body_rotation: true
+```
+
+## Generation Controls
+
+```yaml
+generation:
+  coordinate_tolerance: 1.0e-6
+  stable_ids: true
+  export_member_tags: true
+  export_node_tags: false
+  target_result_tags:
+    - center_sill
+    - bolster_beam
+    - tank_longitudinal
+    - tank_ring
+    - saddle_support
+```
+
+`stable_ids` requires deterministic coordinate sorting and member creation order for identical input parameters.
+

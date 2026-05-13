@@ -1,0 +1,68 @@
+wagon_type: open_wagon
+
+geometry:
+  length: 13920
+  width: 3120
+  floor_y: 0
+  side_height: 2200
+  roof_height: 0
+  bolster_positions: [1850, 12070]
+  end_positions: [0, 13920]
+
+layout:
+  cross_beam_pitch: 1200
+  side_post_pitch: 1000
+  side_height_divisions: 4
+  roof_bow_pitch: 1000
+  include_diagonals: true
+  include_rigid_offsets: true
+  floor_longitudinal_count_each_side: 1
+
+openings:
+  side_doors: []
+
+sections:
+  default_E: 210000
+  catalog: first_stage_v0.1.0
+  center_sill: center_sill_heavy
+  bolster_beam: bolster_beam_heavy
+  end_beam: end_beam_medium
+  side_longitudinal: side_longitudinal_medium
+  cross_beam: cross_beam_medium
+  floor_longitudinal: floor_longitudinal_light
+  side_post: side_post_light
+  end_post: end_post_light
+  upper_belt: upper_belt_light
+  horizontal_belt: horizontal_belt_light
+  roof_bow: roof_bow_light
+  roof_longitudinal: roof_longitudinal_light
+  diagonal_tie: diagonal_tie_equiv
+  rigid_offset: rigid_offset_stub
+
+loads:
+  vertical_distributed_load:
+    enabled: true
+    target_tags: [center_sill, side_longitudinal, cross_beam]
+    w: -20
+    dist_dir: FY
+  lateral_bulk_pressure:
+    enabled: false
+    direction_left: FZ
+    direction_right: FZ
+
+supports:
+  scheme: two_bolster_reference
+  restrain_primary_bolster:
+    dx: true
+    dy: true
+    dz: true
+    rx: false
+    ry: false
+    rz: false
+  restrain_secondary_bolster:
+    dx: false
+    dy: true
+    dz: true
+    rx: false
+    ry: false
+    rz: false
