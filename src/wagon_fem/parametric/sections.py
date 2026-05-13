@@ -46,6 +46,12 @@ FIRST_STAGE_CATALOG.update(
         "roof_longitudinal_placeholder": FIRST_STAGE_CATALOG["roof_longitudinal_light"],
         "interdeck_cross_beam_placeholder": FIRST_STAGE_CATALOG["cross_beam_medium"],
         "interdeck_longitudinal_placeholder": FIRST_STAGE_CATALOG["floor_longitudinal_light"],
+        "tank_shell_equiv": SectionProperties(210000.0, 14000.0, 1.10e8, 1.10e8, 8.00e6),
+        "tank_ring_equiv": SectionProperties(210000.0, 10000.0, 8.00e7, 8.00e7, 5.00e6),
+        "saddle_support": FIRST_STAGE_CATALOG["rigid_offset_stub"],
+        "strap_tie": FIRST_STAGE_CATALOG["diagonal_tie_equiv"],
+        "support_pad_stub": FIRST_STAGE_CATALOG["rigid_offset_stub"],
+        "draft_gear_stub": FIRST_STAGE_CATALOG["center_sill_heavy"],
     }
 )
 

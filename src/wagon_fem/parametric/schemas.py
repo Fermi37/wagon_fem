@@ -23,6 +23,10 @@ class GeometryParams:
     coupler_axis_y: float | None = None
     body_reference: str | None = None
     gauge_profile: str | None = None
+    frame_length: float | None = None
+    truck_base: float | None = None
+    frame_width: float | None = None
+    rail_head_y: float | None = None
 
 
 @dataclass(frozen=True)
@@ -35,6 +39,8 @@ class LayoutParams:
     include_rigid_offsets: bool = False
     floor_longitudinal_count_each_side: int = 1
     include_interdeck: bool = False
+    tank_ring_pitch: float | None = None
+    angular_divisions: int | None = None
 
 
 @dataclass(frozen=True)
@@ -143,6 +149,7 @@ class SectionAssignment:
     catalog: str = "first_stage_v0.1.0"
     center_sill: str = "center_sill_heavy"
     side_sill: str = "side_longitudinal_medium"
+    side_beam: str = "side_longitudinal_medium"
     bolster_beam: str = "bolster_beam_heavy"
     end_beam: str = "end_beam_medium"
     side_longitudinal: str = "side_longitudinal_medium"
@@ -159,6 +166,13 @@ class SectionAssignment:
     roof_longitudinal: str = "roof_longitudinal_light"
     interdeck_cross_beam: str = "cross_beam_medium"
     interdeck_longitudinal: str = "floor_longitudinal_light"
+    tank_longitudinal: str = "side_longitudinal_medium"
+    tank_ring: str = "cross_beam_medium"
+    tank_end_ring: str = "cross_beam_medium"
+    saddle_support: str = "rigid_offset_stub"
+    strap_tie: str = "diagonal_tie_equiv"
+    support_pad_stub: str = "rigid_offset_stub"
+    draft_gear_stub: str = "center_sill_heavy"
     diagonal_tie: str = "diagonal_tie_equiv"
     rigid_offset: str = "rigid_offset_stub"
 
@@ -184,6 +198,9 @@ class LoadParams:
     lateral_bulk_pressure: LateralBulkPressure = field(default_factory=LateralBulkPressure)
     equipment_zone_loads: tuple["EquipmentZoneLoad", ...] = ()
     longitudinal_end_load: "LongitudinalEndLoad" = field(default_factory=lambda: LongitudinalEndLoad())
+    tank_self_weight: "TankTotalLoad" = field(default_factory=lambda: TankTotalLoad())
+    payload: "TankTotalLoad" = field(default_factory=lambda: TankTotalLoad())
+    lateral_inertial_load: "LateralInertialLoad" = field(default_factory=lambda: LateralInertialLoad())
 
 
 @dataclass(frozen=True)
@@ -202,7 +219,24 @@ class LongitudinalEndLoad:
     enabled: bool = False
     x_end: float = 0.0
     force: float = 0.0
+    apply_at: str = "center_sill"
     direction: str = "FX"
+
+
+@dataclass(frozen=True)
+class TankTotalLoad:
+    enabled: bool = False
+    total_force: float = 0.0
+    distribute_to: str = "tank_lattice"
+    dist_dir: str = "FY"
+    fill_level: float | None = None
+
+
+@dataclass(frozen=True)
+class LateralInertialLoad:
+    enabled: bool = False
+    coefficient_g: float = 0.0
+    direction: str = "FZ"
 
 
 @dataclass(frozen=True)
@@ -263,6 +297,66 @@ class GenerationParams:
 
 
 @dataclass(frozen=True)
+class TankParams:
+    length: float = 0.0
+    diameter: float = 0.0
+    radius: float = 0.0
+    center_y: float = 0.0
+    center_z: float = 0.0
+    x_start: float = 0.0
+    x_end: float = 0.0
+    end_shape: str = "flat"
+    bottom_slope_to_drain: bool = False
+    drain_x: float | None = None
+    manhole_x: float | None = None
+    angular_divisions: int = 8
+    ring_pitch: float = 900.0
+    extra_ring_positions: tuple[float, ...] = ()
+
+
+@dataclass(frozen=True)
+class TankFrameParams:
+    center_sill_z: float = 0.0
+    center_sill_y: float = 0.0
+    side_beam_z: tuple[float, ...] = ()
+    side_beam_y: float = 0.0
+    include_side_beams: bool = True
+    include_intermediate_cross_beams: bool = True
+    include_console_side_beams: bool = True
+    draft_gear_length: float = 900.0
+
+
+@dataclass(frozen=True)
+class MiddleLug:
+    x: float
+    angular_position_deg: float = 270.0
+    connect_to: str = "center_sill"
+    longitudinal_lock: bool = False
+
+
+@dataclass(frozen=True)
+class Saddle:
+    x: float
+    angular_span_deg: tuple[float, float] = (225.0, 315.0)
+    connect_to: str = "bolster_beam"
+    allow_longitudinal_slip: bool = False
+
+
+@dataclass(frozen=True)
+class StrapParams:
+    enabled: bool = False
+    stations: tuple[float, ...] = ()
+    angular_anchor_deg: tuple[float, float] = (210.0, 330.0)
+
+
+@dataclass(frozen=True)
+class AttachmentParams:
+    middle_lugs: tuple[MiddleLug, ...] = ()
+    saddles: tuple[Saddle, ...] = ()
+    straps: StrapParams = field(default_factory=StrapParams)
+
+
+@dataclass(frozen=True)
 class WagonParams:
     wagon_type: str = "open_wagon"
     geometry: GeometryParams = field(default_factory=GeometryParams)
@@ -274,6 +368,10 @@ class WagonParams:
     loads: LoadParams = field(default_factory=LoadParams)
     supports: SupportParams = field(default_factory=SupportParams)
     generation: GenerationParams = field(default_factory=GenerationParams)
+    metadata: dict[str, object] = field(default_factory=dict)
+    tank: TankParams = field(default_factory=TankParams)
+    frame: TankFrameParams = field(default_factory=TankFrameParams)
+    attachments: AttachmentParams = field(default_factory=AttachmentParams)
 
 
 @dataclass
@@ -343,7 +441,15 @@ def _zones(items: list[dict[str, Any]] | None) -> tuple[Zone, ...]:
 
 def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
     geometry_raw = data.get("geometry", {})
-    length = float(geometry_raw.get("length", GeometryParams.length))
+    length = float(
+        geometry_raw.get(
+            "length",
+            geometry_raw.get(
+                "frame_length",
+                geometry_raw.get("length_over_coupler_axes", GeometryParams.length),
+            ),
+        )
+    )
     geometry = GeometryParams(
         length=length,
         width=float(geometry_raw.get("width", GeometryParams.width)),
@@ -384,6 +490,26 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
             if geometry_raw.get("gauge_profile") is not None
             else None
         ),
+        frame_length=(
+            float(geometry_raw["frame_length"])
+            if geometry_raw.get("frame_length") is not None
+            else None
+        ),
+        truck_base=(
+            float(geometry_raw["truck_base"])
+            if geometry_raw.get("truck_base") is not None
+            else None
+        ),
+        frame_width=(
+            float(geometry_raw["frame_width"])
+            if geometry_raw.get("frame_width") is not None
+            else None
+        ),
+        rail_head_y=(
+            float(geometry_raw["rail_head_y"])
+            if geometry_raw.get("rail_head_y") is not None
+            else None
+        ),
     )
 
     layout_raw = data.get("layout", {})
@@ -401,6 +527,16 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
             )
         ),
         include_interdeck=bool(layout_raw.get("include_interdeck", LayoutParams.include_interdeck)),
+        tank_ring_pitch=(
+            float(layout_raw["tank_ring_pitch"])
+            if layout_raw.get("tank_ring_pitch") is not None
+            else None
+        ),
+        angular_divisions=(
+            int(layout_raw["angular_divisions"])
+            if layout_raw.get("angular_divisions") is not None
+            else None
+        ),
     )
 
     openings_raw = data.get("openings", {})
@@ -498,6 +634,9 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
             )
         )
     longitudinal_raw = loads_raw.get("longitudinal_end_load", {})
+    tank_self_weight_raw = loads_raw.get("tank_self_weight", {})
+    payload_raw = loads_raw.get("payload", {})
+    lateral_inertial_raw = loads_raw.get("lateral_inertial_load", {})
     loads = LoadParams(
         vertical_distributed_load=DistributedLoad(
             enabled=bool(vertical_raw.get("enabled", False)),
@@ -515,7 +654,30 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
             enabled=bool(longitudinal_raw.get("enabled", False)),
             x_end=float(longitudinal_raw.get("x_end", 0.0)),
             force=float(longitudinal_raw.get("force", 0.0)),
+            apply_at=str(longitudinal_raw.get("apply_at", "center_sill")),
             direction=str(longitudinal_raw.get("direction", "FX")).upper(),
+        ),
+        tank_self_weight=TankTotalLoad(
+            enabled=bool(tank_self_weight_raw.get("enabled", False)),
+            total_force=float(tank_self_weight_raw.get("total_force", 0.0)),
+            distribute_to=str(tank_self_weight_raw.get("distribute_to", "tank_lattice")),
+            dist_dir=str(tank_self_weight_raw.get("dist_dir", "FY")).upper(),
+        ),
+        payload=TankTotalLoad(
+            enabled=bool(payload_raw.get("enabled", False)),
+            total_force=float(payload_raw.get("total_force", 0.0)),
+            distribute_to=str(payload_raw.get("distribute_to", "tank_lattice")),
+            dist_dir=str(payload_raw.get("dist_dir", "FY")).upper(),
+            fill_level=(
+                float(payload_raw["fill_level"])
+                if payload_raw.get("fill_level") is not None
+                else None
+            ),
+        ),
+        lateral_inertial_load=LateralInertialLoad(
+            enabled=bool(lateral_inertial_raw.get("enabled", False)),
+            coefficient_g=float(lateral_inertial_raw.get("coefficient_g", 0.0)),
+            direction=str(lateral_inertial_raw.get("direction", "FZ")).upper(),
         ),
     )
 
@@ -571,6 +733,70 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
         target_result_tags=tuple(str(v) for v in generation_raw.get("target_result_tags", ())),
     )
 
+    tank_raw = data.get("tank", {})
+    tank_diameter = float(tank_raw.get("diameter", 0.0))
+    tank_radius = float(tank_raw.get("radius", tank_diameter / 2.0 if tank_diameter else 0.0))
+    tank = TankParams(
+        length=float(tank_raw.get("length", 0.0)),
+        diameter=tank_diameter,
+        radius=tank_radius,
+        center_y=float(tank_raw.get("center_y", 0.0)),
+        center_z=float(tank_raw.get("center_z", 0.0)),
+        x_start=float(tank_raw.get("x_start", 0.0)),
+        x_end=float(tank_raw.get("x_end", 0.0)),
+        end_shape=str(tank_raw.get("end_shape", "flat")),
+        bottom_slope_to_drain=bool(tank_raw.get("bottom_slope_to_drain", False)),
+        drain_x=(float(tank_raw["drain_x"]) if tank_raw.get("drain_x") is not None else None),
+        manhole_x=(float(tank_raw["manhole_x"]) if tank_raw.get("manhole_x") is not None else None),
+        angular_divisions=int(tank_raw.get("angular_divisions", layout.angular_divisions or 8)),
+        ring_pitch=float(tank_raw.get("ring_pitch", layout.tank_ring_pitch or layout.cross_beam_pitch)),
+        extra_ring_positions=_tuple_float(tank_raw.get("extra_ring_positions", ())),
+    )
+
+    frame_raw = data.get("frame", {})
+    tank_frame = TankFrameParams(
+        center_sill_z=float(frame_raw.get("center_sill_z", 0.0)),
+        center_sill_y=float(frame_raw.get("center_sill_y", 0.0)),
+        side_beam_z=_tuple_float(frame_raw.get("side_beam_z", ())),
+        side_beam_y=float(frame_raw.get("side_beam_y", 0.0)),
+        include_side_beams=bool(frame_raw.get("include_side_beams", True)),
+        include_intermediate_cross_beams=bool(frame_raw.get("include_intermediate_cross_beams", True)),
+        include_console_side_beams=bool(frame_raw.get("include_console_side_beams", True)),
+        draft_gear_length=float(frame_raw.get("draft_gear_length", 900.0)),
+    )
+
+    attachments_raw = data.get("attachments", {})
+    middle_lugs = tuple(
+        MiddleLug(
+            x=float(item["x"]),
+            angular_position_deg=float(item.get("angular_position_deg", 270.0)),
+            connect_to=str(item.get("connect_to", "center_sill")),
+            longitudinal_lock=bool(item.get("longitudinal_lock", False)),
+        )
+        for item in attachments_raw.get("middle_lugs", []) or []
+    )
+    saddles = tuple(
+        Saddle(
+            x=float(item["x"]),
+            angular_span_deg=tuple(float(v) for v in item.get("angular_span_deg", (225.0, 315.0))),
+            connect_to=str(item.get("connect_to", "bolster_beam")),
+            allow_longitudinal_slip=bool(item.get("allow_longitudinal_slip", False)),
+        )
+        for item in attachments_raw.get("saddles", []) or []
+    )
+    straps_raw = attachments_raw.get("straps", {}) or {}
+    attachments = AttachmentParams(
+        middle_lugs=middle_lugs,
+        saddles=saddles,
+        straps=StrapParams(
+            enabled=bool(straps_raw.get("enabled", False)),
+            stations=_tuple_float(straps_raw.get("stations", ())),
+            angular_anchor_deg=tuple(
+                float(v) for v in straps_raw.get("angular_anchor_deg", (210.0, 330.0))
+            ),
+        ),
+    )
+
     return WagonParams(
         wagon_type=str(data.get("wagon_type", "open_wagon")),
         geometry=geometry,
@@ -582,6 +808,10 @@ def wagon_params_from_dict(data: dict[str, Any]) -> WagonParams:
         loads=loads,
         supports=supports,
         generation=generation,
+        metadata=dict(data.get("metadata", {}) or {}),
+        tank=tank,
+        frame=tank_frame,
+        attachments=attachments,
     )
 
 

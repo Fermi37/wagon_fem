@@ -53,3 +53,23 @@ def test_passenger_section_tags_resolve():
             tag = getattr(params.sections, field_name)
             if isinstance(tag, str) and field_name != "catalog":
                 get_section(tag)
+
+
+def test_load_tank_wagon_yaml_params():
+    params = load_params("docs/parametric_generator_v0_3_0/params.tank_wagon.example.yaml")
+
+    assert params.wagon_type == "tank_wagon"
+    assert params.geometry.length == 12020.0
+    assert params.tank.radius == 1500.0
+    assert params.frame.side_beam_z == (-1350.0, 1350.0)
+    assert len(params.attachments.saddles) == 3
+    assert params.loads.payload.total_force == -647000.0
+
+
+def test_tank_section_tags_resolve():
+    params = load_params("docs/parametric_generator_v0_3_0/params.tank_wagon.example.yaml")
+
+    for field_name in params.sections.__dataclass_fields__:
+        tag = getattr(params.sections, field_name)
+        if isinstance(tag, str) and field_name != "catalog":
+            get_section(tag)
