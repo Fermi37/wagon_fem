@@ -20,6 +20,7 @@ This folder contains the implementation documents for a parametric generator of 
 - [06_validation_plan.md](06_validation_plan.md) - checks for geometry, graph connectivity, supports, and solvability.
 - [07_implementation_tasks.md](07_implementation_tasks.md) - executable task list for implementation.
 - [08_body_scheme_illustration.md](08_body_scheme_illustration.md) - conceptual body-frame illustration with topology explanations.
+- [09_confidence_hardening.md](09_confidence_hardening.md) - verification layers for raising implementation confidence before full delivery.
 - [params.open_wagon.example.yaml](params.open_wagon.example.yaml) - starter parameter file.
 
 ## Version Policy

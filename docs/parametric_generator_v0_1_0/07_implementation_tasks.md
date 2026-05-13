@@ -31,6 +31,7 @@
 4. Assign section tags by structural role.
 5. Add default supports near bolster positions.
 6. Add tests for graph connectivity and CSV export.
+7. Add the first vertical-slice test from parameters through solver output.
 
 ## Milestone 5: Covered Wagon Generator
 
@@ -39,6 +40,7 @@
 3. Add door posts, lintels, and threshold members.
 4. Add roof side lines, bows, ridge line, and roof longitudinal members.
 5. Add tests for roof generation and door opening behavior.
+6. Add topology-invariant tests for door-opening omissions and roof-bow placement.
 
 ## Milestone 6: Export and Validation
 
@@ -46,6 +48,9 @@
 2. Implement validation checks from `06_validation_plan.md`.
 3. Add a CLI command for generating CSV from a parameter file.
 4. Add solver smoke tests through `load_model_from_csv(...)`.
+5. Add support-scheme validation for `two_bolster_reference`, `four_point_vertical`, and `solver_stability_clamped_reference`.
+6. Add local-axis verification models for beams along `x`, `y`, `z`, and an inclined roof-bow segment.
+7. Add normalized export comparison and SHA-256 fixture hashing.
 
 ## Milestone 7: Documentation and Examples
 
@@ -53,6 +58,17 @@
 2. Add a short usage page under `docs/`.
 3. Add references from `docs/index.md`.
 4. Document how to replace approximate sections with real section properties.
+5. Document the expected local-axis response for the four canonical verification beams.
+6. Document the accepted support schemes and their intended use.
+7. Record the fixture update procedure for intentional topology changes.
+
+## Confidence-Raising Sequence
+
+1. Build the default open-wagon vertical slice first.
+2. Add local-axis verification before accepting section-property results.
+3. Add support-scheme matrix tests before expanding load cases.
+4. Add topology invariants before implementing covered-wagon openings.
+5. Add golden fixtures before changing generator defaults.
 
 ## Suggested Branch
 
