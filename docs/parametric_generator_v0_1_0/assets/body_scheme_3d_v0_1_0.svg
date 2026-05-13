@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">Isometric 3D view of the parametric wagon body beam scheme with trapezoidal roof</title>
+  <desc id="desc">Editable SVG isometric view of a wagon body beam topology with frame, side walls, end walls, low trapezoidal roof outline, and equivalent panel ties.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font-family: Arial, sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 16px; fill: #475569; }
+      .legendText { font-family: Arial, sans-serif; font-size: 13px; fill: #334155; }
+      .label { font-family: Arial, sans-serif; font-size: 16px; fill: #1e293b; }
+      .small { font-family: Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .tiny { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
+      .center { stroke: #0f766e; stroke-width: 8; stroke-linecap: round; }
+      .side { stroke: #2563eb; stroke-width: 6; stroke-linecap: round; }
+      .cross { stroke: #7c3aed; stroke-width: 5; stroke-linecap: round; }
+      .wall { stroke: #dc2626; stroke-width: 5; stroke-linecap: round; }
+      .belt { stroke: #ea580c; stroke-width: 5; stroke-linecap: round; }
+      .roof { stroke: #0891b2; stroke-width: 5; stroke-linecap: round; }
+      .tie { stroke: #64748b; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 8; opacity: 0.85; }
+      .ghost { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 8 8; fill: none; opacity: 0.55; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+      .callout { stroke: #334155; stroke-width: 1.5; fill: none; }
+    </style>
+    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="980" />
+  <text class="title" x="55" y="55">3D View of Parametric Wagon Body Beam Topology</text>
+  <text class="subtitle" x="55" y="86">Schematic isometric frame for implementation review; member classes match the CSV section catalog.</text>
+
+  <g id="line-type-legend">
+    <line class="center" x1="55" y1="125" x2="115" y2="125" /><text class="legendText" x="128" y="129">center sill</text>
+    <line class="cross" x1="235" y1="125" x2="295" y2="125" /><text class="legendText" x="308" y="129">bolster and cross beams</text>
+    <line class="side" x1="520" y1="125" x2="580" y2="125" /><text class="legendText" x="593" y="129">side longitudinal</text>
+    <line class="wall" x1="735" y1="125" x2="795" y2="125" /><text class="legendText" x="808" y="129">posts</text>
+    <line class="belt" x1="900" y1="125" x2="960" y2="125" /><text class="legendText" x="973" y="129">wall belts</text>
+    <line class="roof" x1="1085" y1="125" x2="1145" y2="125" /><text class="legendText" x="1158" y="129">roof outline</text>
+    <line class="tie" x1="1265" y1="125" x2="1325" y2="125" /><text class="legendText" x="1338" y="129">equivalent ties</text>
+  </g>
+
+  <g id="axes">
+    <line class="axis" x1="130" y1="780" x2="245" y2="755" />
+    <line class="axis" x1="130" y1="780" x2="210" y2="820" />
+    <line class="axis" x1="130" y1="780" x2="130" y2="670" />
+    <text class="label" x="254" y="758">x</text>
+    <text class="label" x="218" y="830">z</text>
+    <text class="label" x="121" y="660">y</text>
+  </g>
+
+  <g id="wagon-3d-model" transform="translate(0 60)">
+  <g id="floor-frame">
+    <line class="side" x1="260" y1="650" x2="1080" y2="470" />
+    <line class="side" x1="560" y1="795" x2="1380" y2="615" />
+    <line class="cross" x1="260" y1="650" x2="560" y2="795" />
+    <line class="cross" x1="1080" y1="470" x2="1380" y2="615" />
+    <line class="center" x1="410" y1="722" x2="1230" y2="542" />
+
+    <line class="cross" x1="383" y1="623" x2="683" y2="768" />
+    <line class="cross" x1="506" y1="596" x2="806" y2="741" />
+    <line class="cross" x1="629" y1="569" x2="929" y2="714" />
+    <line class="cross" x1="752" y1="542" x2="1052" y2="687" />
+    <line class="cross" x1="875" y1="515" x2="1175" y2="660" />
+    <line class="cross" x1="998" y1="488" x2="1298" y2="633" />
+
+    <line class="tie" x1="410" y1="722" x2="683" y2="768" />
+    <line class="tie" x1="410" y1="722" x2="383" y2="623" />
+    <line class="tie" x1="1230" y1="542" x2="998" y2="488" />
+    <line class="tie" x1="1230" y1="542" x2="1298" y2="633" />
+  </g>
+
+  <g id="upper-frame">
+    <line class="belt" x1="260" y1="370" x2="1080" y2="190" />
+    <line class="belt" x1="560" y1="515" x2="1380" y2="335" />
+    <line class="belt" x1="260" y1="370" x2="560" y2="515" />
+    <line class="belt" x1="1080" y1="190" x2="1380" y2="335" />
+    <line class="ghost" x1="260" y1="370" x2="1080" y2="190" />
+    <line class="ghost" x1="560" y1="515" x2="1380" y2="335" />
+  </g>
+
+  <g id="posts">
+    <line class="wall" x1="260" y1="650" x2="260" y2="370" />
+    <line class="wall" x1="560" y1="795" x2="560" y2="515" />
+    <line class="wall" x1="1080" y1="470" x2="1080" y2="190" />
+    <line class="wall" x1="1380" y1="615" x2="1380" y2="335" />
+
+    <line class="wall" x1="383" y1="623" x2="383" y2="343" />
+    <line class="wall" x1="683" y1="768" x2="683" y2="488" />
+    <line class="wall" x1="506" y1="596" x2="506" y2="316" />
+    <line class="wall" x1="806" y1="741" x2="806" y2="461" />
+    <line class="wall" x1="629" y1="569" x2="629" y2="289" />
+    <line class="wall" x1="929" y1="714" x2="929" y2="434" />
+    <line class="wall" x1="752" y1="542" x2="752" y2="262" />
+    <line class="wall" x1="1052" y1="687" x2="1052" y2="407" />
+    <line class="wall" x1="875" y1="515" x2="875" y2="235" />
+    <line class="wall" x1="1175" y1="660" x2="1175" y2="380" />
+    <line class="wall" x1="998" y1="488" x2="998" y2="208" />
+    <line class="wall" x1="1298" y1="633" x2="1298" y2="353" />
+  </g>
+
+  <g id="wall-belts">
+    <line class="belt" x1="260" y1="510" x2="1080" y2="330" />
+    <line class="belt" x1="560" y1="655" x2="1380" y2="475" />
+    <line class="belt" x1="260" y1="510" x2="560" y2="655" />
+    <line class="belt" x1="1080" y1="330" x2="1380" y2="475" />
+  </g>
+
+  <g id="panel-ties">
+    <line class="tie" x1="560" y1="795" x2="683" y2="488" />
+    <line class="tie" x1="683" y1="768" x2="806" y2="461" />
+    <line class="tie" x1="806" y1="741" x2="929" y2="434" />
+    <line class="tie" x1="929" y1="714" x2="1052" y2="407" />
+    <line class="tie" x1="1052" y1="687" x2="1175" y2="380" />
+    <line class="tie" x1="1175" y1="660" x2="1298" y2="353" />
+
+    <line class="tie" x1="260" y1="650" x2="383" y2="343" />
+    <line class="tie" x1="383" y1="623" x2="506" y2="316" />
+    <line class="tie" x1="506" y1="596" x2="629" y2="289" />
+    <line class="tie" x1="629" y1="569" x2="752" y2="262" />
+    <line class="tie" x1="752" y1="542" x2="875" y2="235" />
+    <line class="tie" x1="875" y1="515" x2="998" y2="208" />
+  </g>
+
+  <g id="roof-outline">
+    <line class="roof" x1="260" y1="370" x2="344" y2="321" />
+    <line class="roof" x1="344" y1="321" x2="476" y2="384" />
+    <line class="roof" x1="476" y1="384" x2="560" y2="515" />
+    <line class="roof" x1="1080" y1="190" x2="1164" y2="141" />
+    <line class="roof" x1="1164" y1="141" x2="1296" y2="204" />
+    <line class="roof" x1="1296" y1="204" x2="1380" y2="335" />
+    <line class="roof" x1="344" y1="321" x2="1164" y2="141" />
+    <line class="roof" x1="476" y1="384" x2="1296" y2="204" />
+
+    <line class="roof" x1="383" y1="343" x2="467" y2="294" />
+    <line class="roof" x1="467" y1="294" x2="599" y2="357" />
+    <line class="roof" x1="599" y1="357" x2="683" y2="488" />
+    <line class="roof" x1="629" y1="289" x2="713" y2="240" />
+    <line class="roof" x1="713" y1="240" x2="845" y2="303" />
+    <line class="roof" x1="845" y1="303" x2="929" y2="434" />
+    <line class="roof" x1="875" y1="235" x2="959" y2="186" />
+    <line class="roof" x1="959" y1="186" x2="1091" y2="249" />
+    <line class="roof" x1="1091" y1="249" x2="1175" y2="380" />
+  </g>
+
+  <g id="nodes">
+    <circle class="node" cx="260" cy="650" r="5" /><circle class="node" cx="560" cy="795" r="5" />
+    <circle class="node" cx="1080" cy="470" r="5" /><circle class="node" cx="1380" cy="615" r="5" />
+    <circle class="node" cx="260" cy="370" r="5" /><circle class="node" cx="560" cy="515" r="5" />
+    <circle class="node" cx="1080" cy="190" r="5" /><circle class="node" cx="1380" cy="335" r="5" />
+    <circle class="node" cx="410" cy="722" r="5" /><circle class="node" cx="1230" cy="542" r="5" />
+    <circle class="node" cx="344" cy="321" r="5" /><circle class="node" cx="476" cy="384" r="5" />
+    <circle class="node" cx="1164" cy="141" r="5" /><circle class="node" cx="1296" cy="204" r="5" />
+  </g>
+
+  </g>
+
+  <text class="tiny" x="55" y="950">Generated as editable SVG for docs/parametric_generator_v0_1_0. The 3D view is schematic; exact geometry is produced from parameterized coordinates.</text>
+</svg>

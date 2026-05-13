@@ -8,6 +8,7 @@ Available pages:
 
 - `usage.md` — Quick start, CLI and UI examples, CSV format
 - `api.md` — Short API reference and examples
+- `parametric_generator_v0_1_0/` — Versioned implementation documents for the parametric wagon beam generator
 
 To preview locally you can use MkDocs or any static site generator that reads Markdown:
 
