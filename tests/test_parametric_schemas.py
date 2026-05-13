@@ -27,3 +27,21 @@ def test_first_stage_catalog_contains_expected_center_sill():
     assert section.E == 210000.0
     assert section.A == 18000.0
     assert "diagonal_tie_equiv" in FIRST_STAGE_CATALOG
+
+
+def test_load_passenger_yaml_params():
+    params = load_params("docs/parametric_generator_v0_2_0/params.passenger_single_deck.example.yaml")
+
+    assert params.wagon_type == "passenger_single_deck"
+    assert params.levels.window_sill_y == 1100.0
+    assert len(params.openings.side_windows[0].expanded()) == 8
+    assert params.supports.support_points[0].flags.dy is True
+
+
+def test_passenger_section_tags_resolve():
+    params = load_params("docs/parametric_generator_v0_2_0/params.passenger_single_deck.example.yaml")
+
+    for field_name in params.sections.__dataclass_fields__:
+        tag = getattr(params.sections, field_name)
+        if isinstance(tag, str) and field_name != "catalog":
+            get_section(tag)

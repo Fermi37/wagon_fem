@@ -6,15 +6,20 @@ from pathlib import Path
 from .covered_wagon import build_covered_wagon
 from .export import export_model_csv
 from .open_wagon import build_open_wagon
+from .passenger_single_deck import build_passenger_single_deck
 from .schemas import load_params
 from .validation import assert_valid_generated_frame, topology_summary, write_validation_report
 
 
 def _build(params_path: str | Path):
     params = load_params(params_path)
+    if params.wagon_type == "passenger_single_deck":
+        return build_passenger_single_deck(params)
     if params.wagon_type == "covered_wagon":
         return build_covered_wagon(params)
-    return build_open_wagon(params)
+    if params.wagon_type == "open_wagon":
+        return build_open_wagon(params)
+    raise ValueError(f"Unsupported wagon_type: {params.wagon_type}")
 
 
 def main() -> None:

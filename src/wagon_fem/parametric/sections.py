@@ -29,6 +29,26 @@ FIRST_STAGE_CATALOG: dict[str, SectionProperties] = {
     "rigid_offset_stub": SectionProperties(210000.0, 50000.0, 1.00e10, 1.00e10, 1.00e9),
 }
 
+FIRST_STAGE_CATALOG.update(
+    {
+        "center_sill_placeholder": FIRST_STAGE_CATALOG["center_sill_heavy"],
+        "side_sill_placeholder": FIRST_STAGE_CATALOG["side_longitudinal_medium"],
+        "bolster_beam_placeholder": FIRST_STAGE_CATALOG["bolster_beam_heavy"],
+        "end_beam_placeholder": FIRST_STAGE_CATALOG["end_beam_medium"],
+        "cross_beam_placeholder": FIRST_STAGE_CATALOG["cross_beam_medium"],
+        "floor_longitudinal_placeholder": FIRST_STAGE_CATALOG["floor_longitudinal_light"],
+        "side_post_placeholder": FIRST_STAGE_CATALOG["side_post_light"],
+        "opening_post_placeholder": FIRST_STAGE_CATALOG["side_post_light"],
+        "side_belt_placeholder": FIRST_STAGE_CATALOG["horizontal_belt_light"],
+        "end_post_placeholder": FIRST_STAGE_CATALOG["end_post_light"],
+        "main_impact_post_placeholder": FIRST_STAGE_CATALOG["end_post_light"],
+        "roof_bow_placeholder": FIRST_STAGE_CATALOG["roof_bow_light"],
+        "roof_longitudinal_placeholder": FIRST_STAGE_CATALOG["roof_longitudinal_light"],
+        "interdeck_cross_beam_placeholder": FIRST_STAGE_CATALOG["cross_beam_medium"],
+        "interdeck_longitudinal_placeholder": FIRST_STAGE_CATALOG["floor_longitudinal_light"],
+    }
+)
+
 
 def get_section(tag: str) -> SectionProperties:
     try:
