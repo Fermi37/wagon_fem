@@ -37,11 +37,19 @@ def test_load_passenger_yaml_params():
     assert len(params.openings.side_windows[0].expanded()) == 8
     assert params.supports.support_points[0].flags.dy is True
 
+    double_deck = load_params("docs/parametric_generator_v0_2_0/params.passenger_double_deck.example.yaml")
+    assert double_deck.wagon_type == "passenger_double_deck"
+    assert double_deck.levels.interdeck_floor_y == 2100.0
+    assert len(double_deck.zones.stairwells) == 2
+
 
 def test_passenger_section_tags_resolve():
-    params = load_params("docs/parametric_generator_v0_2_0/params.passenger_single_deck.example.yaml")
-
-    for field_name in params.sections.__dataclass_fields__:
-        tag = getattr(params.sections, field_name)
-        if isinstance(tag, str) and field_name != "catalog":
-            get_section(tag)
+    for path in (
+        "docs/parametric_generator_v0_2_0/params.passenger_single_deck.example.yaml",
+        "docs/parametric_generator_v0_2_0/params.passenger_double_deck.example.yaml",
+    ):
+        params = load_params(path)
+        for field_name in params.sections.__dataclass_fields__:
+            tag = getattr(params.sections, field_name)
+            if isinstance(tag, str) and field_name != "catalog":
+                get_section(tag)

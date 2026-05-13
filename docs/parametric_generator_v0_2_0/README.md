@@ -50,3 +50,10 @@ build_passenger_double_deck(params)
 ```
 
 Both functions should return the existing `GeneratedFrame` object and export through the existing combined `CSV` contract.
+
+## Example Commands
+
+```text
+python -m wagon_fem.parametric docs/parametric_generator_v0_2_0/params.passenger_single_deck.example.yaml --output tmp/passenger_single_deck.csv --validate
+python -m wagon_fem.parametric docs/parametric_generator_v0_2_0/params.passenger_double_deck.example.yaml --output tmp/passenger_double_deck.csv --validate
+```
