@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1180" viewBox="0 0 1700 1180" role="img" aria-labelledby="title desc">
+  <title id="title">3D projections of passenger-car body beam schemes</title>
+  <desc id="desc">Editable SVG with two schematic isometric projections: a single-deck passenger-car beam frame and a double-deck passenger-car beam frame with interdeck beams and lowered floor.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .title { font-family: Arial, sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 19px; font-weight: 700; fill: #1e293b; }
+      .label { font-family: Arial, sans-serif; font-size: 15px; fill: #1e293b; }
+      .small { font-family: Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .tiny { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .legendText { font-family: Arial, sans-serif; font-size: 13px; fill: #334155; }
+      .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
+      .center { stroke: #0f766e; stroke-width: 7; stroke-linecap: round; }
+      .side { stroke: #2563eb; stroke-width: 6; stroke-linecap: round; }
+      .cross { stroke: #7c3aed; stroke-width: 5; stroke-linecap: round; }
+      .floor { stroke: #475569; stroke-width: 4; stroke-linecap: round; }
+      .post { stroke: #dc2626; stroke-width: 5; stroke-linecap: round; }
+      .belt { stroke: #ea580c; stroke-width: 5; stroke-linecap: round; }
+      .roof { stroke: #0891b2; stroke-width: 5; stroke-linecap: round; }
+      .interdeck { stroke: #16a34a; stroke-width: 5; stroke-linecap: round; }
+      .tie { stroke: #64748b; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 9 7; opacity: 0.8; }
+      .ghost { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 7; fill: none; opacity: 0.55; }
+      .opening { fill: #eff6ff; stroke: #93c5fd; stroke-width: 2; opacity: 0.9; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+    </style>
+    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1700" height="1180" />
+  <text class="title" x="55" y="55">3D Projections for Passenger-Car Beam Generator v0.2.0</text>
+  <text class="small" x="55" y="86">Schematic isometric views for implementation review. Exact node coordinates are generated from YAML parameters.</text>
+
+  <g id="legend">
+    <line class="center" x1="55" y1="125" x2="115" y2="125" /><text class="legendText" x="128" y="129">center sill</text>
+    <line class="side" x1="230" y1="125" x2="290" y2="125" /><text class="legendText" x="303" y="129">side sill</text>
+    <line class="cross" x1="410" y1="125" x2="470" y2="125" /><text class="legendText" x="483" y="129">cross beams</text>
+    <line class="post" x1="600" y1="125" x2="660" y2="125" /><text class="legendText" x="673" y="129">posts</text>
+    <line class="belt" x1="760" y1="125" x2="820" y2="125" /><text class="legendText" x="833" y="129">belts</text>
+    <line class="roof" x1="910" y1="125" x2="970" y2="125" /><text class="legendText" x="983" y="129">covered-wagon-type roof</text>
+    <line class="interdeck" x1="1190" y1="125" x2="1250" y2="125" /><text class="legendText" x="1263" y="129">interdeck beams</text>
+    <line class="tie" x1="1430" y1="125" x2="1490" y2="125" /><text class="legendText" x="1503" y="129">equivalent ties</text>
+  </g>
+
+  <g id="axes">
+    <line class="axis" x1="120" y1="1090" x2="225" y2="1065" />
+    <line class="axis" x1="120" y1="1090" x2="198" y2="1130" />
+    <line class="axis" x1="120" y1="1090" x2="120" y2="985" />
+    <text class="label" x="234" y="1069">x</text>
+    <text class="label" x="205" y="1140">z</text>
+    <text class="label" x="111" y="975">y</text>
+  </g>
+
+  <rect class="panel" x="40" y="165" width="785" height="870" rx="8" />
+  <text class="subtitle" x="75" y="205">Single-deck passenger-car body frame</text>
+
+  <g id="single-deck" transform="translate(-20 35)">
+    <g id="single-floor">
+      <line class="side" x1="165" y1="760" x2="585" y2="650" />
+      <line class="side" x1="325" y1="850" x2="745" y2="740" />
+      <line class="center" x1="245" y1="805" x2="665" y2="695" />
+      <line class="cross" x1="165" y1="760" x2="325" y2="850" />
+      <line class="cross" x1="585" y1="650" x2="745" y2="740" />
+      <line class="floor" x1="220" y1="795" x2="640" y2="685" />
+      <line class="floor" x1="270" y1="825" x2="690" y2="715" />
+      <line class="cross" x1="250" y1="738" x2="410" y2="828" />
+      <line class="cross" x1="335" y1="716" x2="495" y2="806" />
+      <line class="cross" x1="420" y1="694" x2="580" y2="784" />
+      <line class="cross" x1="505" y1="672" x2="665" y2="762" />
+    </g>
+
+    <g id="single-walls">
+      <line class="post" x1="165" y1="760" x2="165" y2="500" />
+      <line class="post" x1="325" y1="850" x2="325" y2="590" />
+      <line class="post" x1="585" y1="650" x2="585" y2="390" />
+      <line class="post" x1="745" y1="740" x2="745" y2="480" />
+      <line class="post" x1="250" y1="738" x2="250" y2="478" />
+      <line class="post" x1="410" y1="828" x2="410" y2="568" />
+      <line class="post" x1="335" y1="716" x2="335" y2="456" />
+      <line class="post" x1="495" y1="806" x2="495" y2="546" />
+      <line class="post" x1="420" y1="694" x2="420" y2="434" />
+      <line class="post" x1="580" y1="784" x2="580" y2="524" />
+      <line class="post" x1="505" y1="672" x2="505" y2="412" />
+      <line class="post" x1="665" y1="762" x2="665" y2="502" />
+      <line class="belt" x1="165" y1="500" x2="585" y2="390" />
+      <line class="belt" x1="325" y1="590" x2="745" y2="480" />
+      <line class="belt" x1="165" y1="620" x2="585" y2="510" />
+      <line class="belt" x1="325" y1="710" x2="745" y2="600" />
+      <line class="belt" x1="165" y1="500" x2="325" y2="590" />
+      <line class="belt" x1="585" y1="390" x2="745" y2="480" />
+      <line class="tie" x1="325" y1="850" x2="410" y2="568" />
+      <line class="tie" x1="410" y1="828" x2="495" y2="546" />
+      <line class="tie" x1="495" y1="806" x2="580" y2="524" />
+      <line class="tie" x1="580" y1="784" x2="665" y2="502" />
+    </g>
+
+    <g id="single-openings">
+      <polygon class="opening" points="420,680 492,661 492,585 420,604" />
+      <polygon class="opening" points="515,655 587,636 587,560 515,579" />
+    </g>
+
+    <g id="single-roof">
+      <line class="roof" x1="165" y1="500" x2="210" y2="450" />
+      <line class="roof" x1="210" y1="450" x2="280" y2="490" />
+      <line class="roof" x1="280" y1="490" x2="325" y2="590" />
+      <line class="roof" x1="585" y1="390" x2="630" y2="340" />
+      <line class="roof" x1="630" y1="340" x2="700" y2="380" />
+      <line class="roof" x1="700" y1="380" x2="745" y2="480" />
+      <line class="roof" x1="210" y1="450" x2="630" y2="340" />
+      <line class="roof" x1="280" y1="490" x2="700" y2="380" />
+      <line class="roof" x1="335" y1="456" x2="380" y2="406" />
+      <line class="roof" x1="380" y1="406" x2="450" y2="446" />
+      <line class="roof" x1="450" y1="446" x2="495" y2="546" />
+      <line class="roof" x1="505" y1="412" x2="550" y2="362" />
+      <line class="roof" x1="550" y1="362" x2="620" y2="402" />
+      <line class="roof" x1="620" y1="402" x2="665" y2="502" />
+    </g>
+  </g>
+
+  <rect class="panel" x="875" y="165" width="785" height="870" rx="8" />
+  <text class="subtitle" x="910" y="205">Double-deck passenger-car body frame</text>
+
+  <g id="double-deck" transform="translate(835 35)">
+    <g id="double-floor">
+      <line class="side" x1="165" y1="760" x2="585" y2="650" />
+      <line class="side" x1="325" y1="850" x2="745" y2="740" />
+      <line class="center" x1="245" y1="805" x2="665" y2="695" />
+      <line class="floor" x1="260" y1="885" x2="680" y2="775" />
+      <line class="cross" x1="165" y1="760" x2="325" y2="850" />
+      <line class="cross" x1="585" y1="650" x2="745" y2="740" />
+      <line class="cross" x1="250" y1="738" x2="410" y2="828" />
+      <line class="cross" x1="335" y1="716" x2="495" y2="806" />
+      <line class="cross" x1="420" y1="694" x2="580" y2="784" />
+      <line class="cross" x1="505" y1="672" x2="665" y2="762" />
+    </g>
+
+    <g id="double-walls">
+      <line class="post" x1="165" y1="760" x2="165" y2="390" />
+      <line class="post" x1="325" y1="850" x2="325" y2="480" />
+      <line class="post" x1="585" y1="650" x2="585" y2="280" />
+      <line class="post" x1="745" y1="740" x2="745" y2="370" />
+      <line class="post" x1="250" y1="738" x2="250" y2="368" />
+      <line class="post" x1="410" y1="828" x2="410" y2="458" />
+      <line class="post" x1="335" y1="716" x2="335" y2="346" />
+      <line class="post" x1="495" y1="806" x2="495" y2="436" />
+      <line class="post" x1="420" y1="694" x2="420" y2="324" />
+      <line class="post" x1="580" y1="784" x2="580" y2="414" />
+      <line class="post" x1="505" y1="672" x2="505" y2="302" />
+      <line class="post" x1="665" y1="762" x2="665" y2="392" />
+      <line class="belt" x1="165" y1="390" x2="585" y2="280" />
+      <line class="belt" x1="325" y1="480" x2="745" y2="370" />
+      <line class="belt" x1="165" y1="575" x2="585" y2="465" />
+      <line class="belt" x1="325" y1="665" x2="745" y2="555" />
+      <line class="belt" x1="165" y1="690" x2="585" y2="580" />
+      <line class="belt" x1="325" y1="780" x2="745" y2="670" />
+      <line class="belt" x1="165" y1="390" x2="325" y2="480" />
+      <line class="belt" x1="585" y1="280" x2="745" y2="370" />
+    </g>
+
+    <g id="double-window-rows">
+      <polygon class="opening" points="380,758 440,742 440,690 380,706" />
+      <polygon class="opening" points="465,736 525,720 525,668 465,684" />
+      <polygon class="opening" points="550,714 610,698 610,646 550,662" />
+      <polygon class="opening" points="635,692 695,676 695,624 635,640" />
+
+      <polygon class="opening" points="380,548 440,532 440,482 380,498" />
+      <polygon class="opening" points="465,526 525,510 525,460 465,476" />
+      <polygon class="opening" points="550,504 610,488 610,438 550,454" />
+      <polygon class="opening" points="635,482 695,466 695,416 635,432" />
+
+      <text class="tiny" x="392" y="674">first-floor windows</text>
+      <text class="tiny" x="392" y="466">second-floor windows</text>
+    </g>
+
+    <g id="double-interdeck">
+      <line class="interdeck" x1="165" y1="575" x2="585" y2="465" />
+      <line class="interdeck" x1="325" y1="665" x2="745" y2="555" />
+      <line class="interdeck" x1="165" y1="575" x2="325" y2="665" />
+      <line class="interdeck" x1="585" y1="465" x2="745" y2="555" />
+      <line class="interdeck" x1="335" y1="531" x2="495" y2="621" />
+      <line class="interdeck" x1="505" y1="487" x2="665" y2="577" />
+      <line class="post" x1="430" y1="665" x2="430" y2="575" />
+      <line class="post" x1="535" y1="638" x2="535" y2="548" />
+    </g>
+
+    <g id="double-roof">
+      <line class="roof" x1="165" y1="390" x2="210" y2="350" />
+      <line class="roof" x1="210" y1="350" x2="280" y2="390" />
+      <line class="roof" x1="280" y1="390" x2="325" y2="480" />
+      <line class="roof" x1="585" y1="280" x2="630" y2="240" />
+      <line class="roof" x1="630" y1="240" x2="700" y2="280" />
+      <line class="roof" x1="700" y1="280" x2="745" y2="370" />
+      <line class="roof" x1="210" y1="350" x2="630" y2="240" />
+      <line class="roof" x1="280" y1="390" x2="700" y2="280" />
+      <line class="roof" x1="335" y1="346" x2="380" y2="306" />
+      <line class="roof" x1="380" y1="306" x2="450" y2="346" />
+      <line class="roof" x1="450" y1="346" x2="495" y2="436" />
+      <line class="roof" x1="505" y1="302" x2="550" y2="262" />
+      <line class="roof" x1="550" y1="262" x2="620" y2="302" />
+      <line class="roof" x1="620" y1="302" x2="665" y2="392" />
+    </g>
+
+    <g id="double-ties">
+      <line class="tie" x1="325" y1="850" x2="410" y2="458" />
+      <line class="tie" x1="495" y1="806" x2="580" y2="414" />
+      <line class="tie" x1="165" y1="760" x2="250" y2="368" />
+      <line class="tie" x1="420" y1="694" x2="505" y2="302" />
+    </g>
+  </g>
+
+  <text class="tiny" x="55" y="1145">Generated for docs/parametric_generator_v0_2_0. Proportions are schematic; the roof uses a covered-wagon-type trapezoidal gauge outline.</text>
+</svg>

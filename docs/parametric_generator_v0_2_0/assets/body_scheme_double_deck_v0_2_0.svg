@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1120" viewBox="0 0 1700 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Double-deck passenger-car beam model 61-4465</title>
+  <desc id="desc">Double-deck beam model for passenger car 61-4465 with first-floor beams, interdeck beams, second-floor side-wall belts, two side-window rows, lowered central floor, stairwell frames, end transition zones, and Tpr roof envelope.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .bodyfill { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 2; }
+      .title { font-family: Arial, sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 19px; font-weight: 700; fill: #1e293b; }
+      .label { font-family: Arial, sans-serif; font-size: 15px; fill: #1e293b; }
+      .small { font-family: Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .tiny { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .center { stroke: #0f766e; stroke-width: 8; stroke-linecap: round; }
+      .side { stroke: #2563eb; stroke-width: 6; stroke-linecap: round; }
+      .cross { stroke: #7c3aed; stroke-width: 5; stroke-linecap: round; }
+      .post { stroke: #dc2626; stroke-width: 5; stroke-linecap: round; }
+      .belt { stroke: #ea580c; stroke-width: 5; stroke-linecap: round; }
+      .roof { stroke: #0891b2; stroke-width: 5; stroke-linecap: round; }
+      .interdeck { stroke: #16a34a; stroke-width: 6; stroke-linecap: round; }
+      .lowered { stroke: #475569; stroke-width: 5; stroke-linecap: round; }
+      .tie { stroke: #64748b; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 8; }
+      .opening { fill: #eff6ff; stroke: #93c5fd; stroke-width: 2; }
+      .stair { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 8 6; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+      .dimension { stroke: #64748b; stroke-width: 2; marker-start: url(#arrowDim); marker-end: url(#arrowDim); }
+      .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
+    </style>
+    <marker id="arrowDim" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M1,5 L9,1 L7,5 L9,9 Z" fill="#64748b" />
+    </marker>
+    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1700" height="1120" />
+  <text class="title" x="55" y="55">Double-Deck Passenger-Car Beam Model 61-4465</text>
+  <text class="small" x="55" y="86">Primary topology for the 61-4465 body: two passenger levels, interdeck structure, lowered central first floor, and end stair/service zones.</text>
+
+  <rect class="panel" x="40" y="120" width="1135" height="920" rx="8" />
+  <text class="subtitle" x="75" y="160">Side-wall, interdeck, and underframe scheme in the x-y plane</text>
+
+  <line class="axis" x1="90" y1="975" x2="205" y2="975" />
+  <line class="axis" x1="90" y1="975" x2="90" y2="870" />
+  <text class="label" x="214" y="980">x</text>
+  <text class="label" x="81" y="860">y</text>
+
+  <line class="dimension" x1="200" y1="210" x2="1050" y2="210" />
+  <text class="label" x="596" y="198">26232</text>
+  <line class="dimension" x1="320" y1="1000" x2="930" y2="1000" />
+  <text class="label" x="604" y="988">19000</text>
+
+  <path class="bodyfill" d="M200 360 L250 300 L1000 300 L1050 360 L1050 875 L200 875 Z" />
+
+  <line class="side" x1="200" y1="835" x2="1050" y2="835" />
+  <line class="center" x1="200" y1="880" x2="1050" y2="880" />
+  <line class="lowered" x1="365" y1="910" x2="885" y2="910" />
+
+  <line class="belt" x1="200" y1="760" x2="1050" y2="760" />
+  <line class="belt" x1="200" y1="675" x2="1050" y2="675" />
+  <line class="interdeck" x1="200" y1="600" x2="1050" y2="600" />
+  <line class="belt" x1="200" y1="520" x2="1050" y2="520" />
+  <line class="belt" x1="200" y1="435" x2="1050" y2="435" />
+  <line class="belt" x1="200" y1="360" x2="1050" y2="360" />
+  <line class="roof" x1="200" y1="360" x2="250" y2="300" />
+  <line class="roof" x1="250" y1="300" x2="1000" y2="300" />
+  <line class="roof" x1="1000" y1="300" x2="1050" y2="360" />
+
+  <rect class="stair" x="235" y="600" width="110" height="235" rx="4" />
+  <rect class="stair" x="905" y="600" width="110" height="235" rx="4" />
+  <text class="tiny" x="245" y="590">end stair/service frame</text>
+  <text class="tiny" x="890" y="590">end stair/service frame</text>
+
+  <g id="lower-window-row">
+    <rect class="opening" x="380" y="688" width="58" height="58" rx="4" />
+    <rect class="opening" x="458" y="688" width="58" height="58" rx="4" />
+    <rect class="opening" x="536" y="688" width="58" height="58" rx="4" />
+    <rect class="opening" x="614" y="688" width="58" height="58" rx="4" />
+    <rect class="opening" x="692" y="688" width="58" height="58" rx="4" />
+    <rect class="opening" x="770" y="688" width="58" height="58" rx="4" />
+  </g>
+
+  <g id="upper-window-row">
+    <rect class="opening" x="380" y="448" width="58" height="58" rx="4" />
+    <rect class="opening" x="458" y="448" width="58" height="58" rx="4" />
+    <rect class="opening" x="536" y="448" width="58" height="58" rx="4" />
+    <rect class="opening" x="614" y="448" width="58" height="58" rx="4" />
+    <rect class="opening" x="692" y="448" width="58" height="58" rx="4" />
+    <rect class="opening" x="770" y="448" width="58" height="58" rx="4" />
+  </g>
+
+  <g id="full-height-posts">
+    <line class="post" x1="200" y1="360" x2="200" y2="880" />
+    <line class="post" x1="235" y1="360" x2="235" y2="880" />
+    <line class="post" x1="345" y1="360" x2="345" y2="880" />
+    <line class="post" x1="380" y1="360" x2="380" y2="448" />
+    <line class="post" x1="380" y1="506" x2="380" y2="688" />
+    <line class="post" x1="380" y1="746" x2="380" y2="880" />
+    <line class="post" x1="438" y1="360" x2="438" y2="448" />
+    <line class="post" x1="438" y1="506" x2="438" y2="688" />
+    <line class="post" x1="438" y1="746" x2="438" y2="880" />
+    <line class="post" x1="458" y1="360" x2="458" y2="880" />
+    <line class="post" x1="516" y1="360" x2="516" y2="448" />
+    <line class="post" x1="516" y1="506" x2="516" y2="688" />
+    <line class="post" x1="516" y1="746" x2="516" y2="880" />
+    <line class="post" x1="536" y1="360" x2="536" y2="880" />
+    <line class="post" x1="594" y1="360" x2="594" y2="448" />
+    <line class="post" x1="594" y1="506" x2="594" y2="688" />
+    <line class="post" x1="594" y1="746" x2="594" y2="880" />
+    <line class="post" x1="614" y1="360" x2="614" y2="880" />
+    <line class="post" x1="672" y1="360" x2="672" y2="448" />
+    <line class="post" x1="672" y1="506" x2="672" y2="688" />
+    <line class="post" x1="672" y1="746" x2="672" y2="880" />
+    <line class="post" x1="692" y1="360" x2="692" y2="880" />
+    <line class="post" x1="750" y1="360" x2="750" y2="448" />
+    <line class="post" x1="750" y1="506" x2="750" y2="688" />
+    <line class="post" x1="750" y1="746" x2="750" y2="880" />
+    <line class="post" x1="770" y1="360" x2="770" y2="880" />
+    <line class="post" x1="828" y1="360" x2="828" y2="448" />
+    <line class="post" x1="828" y1="506" x2="828" y2="688" />
+    <line class="post" x1="828" y1="746" x2="828" y2="880" />
+    <line class="post" x1="905" y1="360" x2="905" y2="880" />
+    <line class="post" x1="1015" y1="360" x2="1015" y2="880" />
+    <line class="post" x1="1050" y1="360" x2="1050" y2="880" />
+  </g>
+
+  <g id="underframe-ties">
+    <line class="cross" x1="320" y1="835" x2="320" y2="760" />
+    <line class="cross" x1="930" y1="835" x2="930" y2="760" />
+    <line class="tie" x1="320" y1="835" x2="365" y2="760" />
+    <line class="tie" x1="930" y1="835" x2="885" y2="760" />
+  </g>
+
+  <text class="tiny" x="430" y="424">second-floor window row</text>
+  <text class="tiny" x="430" y="666">first-floor window row</text>
+  <text class="tiny" x="405" y="930">lowered central first-floor beam line</text>
+  <text class="tiny" x="430" y="590">interdeck structural line</text>
+  <text class="tiny" x="292" y="286">Tpr roof envelope line</text>
+  <text class="tiny" x="292" y="850">bolster / underframe load-transfer zone</text>
+
+  <rect class="panel" x="1220" y="120" width="420" height="920" rx="8" />
+  <text class="subtitle" x="1255" y="160">Cross section in the y-z plane</text>
+
+  <line class="axis" x1="1270" y1="965" x2="1375" y2="965" />
+  <line class="axis" x1="1270" y1="965" x2="1270" y2="860" />
+  <text class="label" x="1384" y="970">z</text>
+  <text class="label" x="1261" y="850">y</text>
+
+  <line class="dimension" x1="1310" y1="910" x2="1540" y2="910" />
+  <text class="label" x="1405" y="898">3185</text>
+  <line class="dimension" x1="1575" y1="300" x2="1575" y2="850" />
+  <text class="label" x="1600" y="585" text-anchor="middle" transform="rotate(-90 1600 585)">5250</text>
+
+  <path class="bodyfill" d="M1310 850 L1310 395 L1355 330 L1495 330 L1540 395 L1540 850 Z" />
+  <line class="cross" x1="1310" y1="850" x2="1540" y2="850" />
+  <line class="lowered" x1="1330" y1="880" x2="1520" y2="880" />
+  <line class="belt" x1="1310" y1="775" x2="1540" y2="775" />
+  <line class="interdeck" x1="1310" y1="620" x2="1540" y2="620" />
+  <line class="belt" x1="1310" y1="535" x2="1540" y2="535" />
+  <line class="belt" x1="1310" y1="430" x2="1540" y2="430" />
+  <line class="post" x1="1310" y1="850" x2="1310" y2="395" />
+  <line class="post" x1="1540" y1="850" x2="1540" y2="395" />
+  <line class="post" x1="1370" y1="850" x2="1370" y2="395" />
+  <line class="post" x1="1480" y1="850" x2="1480" y2="395" />
+  <line class="roof" x1="1310" y1="395" x2="1355" y2="330" />
+  <line class="roof" x1="1355" y1="330" x2="1495" y2="330" />
+  <line class="roof" x1="1495" y1="330" x2="1540" y2="395" />
+
+  <text class="tiny" x="1360" y="610">interdeck</text>
+  <text class="tiny" x="1355" y="312">Tpr roof envelope</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="760" viewBox="0 0 1700 760" role="img" aria-labelledby="title desc">
+  <title id="title">External reference outline of double-deck passenger car 61-4465</title>
+  <desc id="desc">Schematic side elevation and end outline based on the external appearance of the double-deck passenger car assembly drawing 4465.00.00.000.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .title { font-family: Arial, sans-serif; font-size: 28px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; fill: #1e293b; }
+      .label { font-family: Arial, sans-serif; font-size: 15px; fill: #1e293b; }
+      .small { font-family: Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .tiny { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .body { fill: #eef2f7; stroke: #334155; stroke-width: 4; }
+      .roof { fill: #dbeafe; stroke: #0891b2; stroke-width: 4; }
+      .under { stroke: #475569; stroke-width: 5; stroke-linecap: round; }
+      .belt { stroke: #ea580c; stroke-width: 4; stroke-linecap: round; }
+      .window { fill: #bfdbfe; stroke: #1d4ed8; stroke-width: 2; }
+      .door { fill: #e0f2fe; stroke: #0369a1; stroke-width: 3; }
+      .bogie { fill: #e5e7eb; stroke: #475569; stroke-width: 3; }
+      .wheel { fill: #ffffff; stroke: #334155; stroke-width: 3; }
+      .dimension { stroke: #64748b; stroke-width: 2; marker-start: url(#arrowDim); marker-end: url(#arrowDim); }
+      .guide { stroke: #94a3b8; stroke-width: 1.5; stroke-dasharray: 6 5; }
+      .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
+    </style>
+    <marker id="arrowDim" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M1,5 L9,1 L7,5 L9,9 Z" fill="#64748b" />
+    </marker>
+    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1700" height="760" />
+  <text class="title" x="55" y="52">External Appearance Reference: Double-Deck Passenger Car 61-4465</text>
+  <text class="small" x="55" y="82">Schematic outline for aligning the beam generator with the assembly drawing. Dimensions shown are reference parameters.</text>
+
+  <rect class="panel" x="40" y="115" width="1220" height="570" rx="8" />
+  <text class="subtitle" x="75" y="154">Side elevation: two passenger levels and service end zones</text>
+
+  <path class="body" d="M145 345 L185 275 L1115 275 L1160 345 L1160 520 L145 520 Z" />
+  <path class="roof" d="M185 275 L250 230 L1050 230 L1115 275 Z" />
+  <line class="under" x1="130" y1="535" x2="1175" y2="535" />
+  <line class="belt" x1="175" y1="390" x2="1130" y2="390" />
+  <line class="belt" x1="175" y1="475" x2="1130" y2="475" />
+
+  <rect class="door" x="205" y="405" width="42" height="110" rx="4" />
+  <rect class="door" x="1072" y="405" width="42" height="110" rx="4" />
+
+  <g id="lower-windows">
+    <rect class="window" x="315" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="395" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="475" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="555" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="635" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="715" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="795" y="415" width="50" height="45" rx="5" />
+    <rect class="window" x="875" y="415" width="50" height="45" rx="5" />
+  </g>
+
+  <g id="upper-windows">
+    <rect class="window" x="315" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="395" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="475" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="555" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="635" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="715" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="795" y="315" width="50" height="45" rx="5" />
+    <rect class="window" x="875" y="315" width="50" height="45" rx="5" />
+  </g>
+
+  <rect class="bogie" x="265" y="545" width="150" height="50" rx="8" />
+  <circle class="wheel" cx="305" cy="600" r="22" />
+  <circle class="wheel" cx="375" cy="600" r="22" />
+  <rect class="bogie" x="895" y="545" width="150" height="50" rx="8" />
+  <circle class="wheel" cx="935" cy="600" r="22" />
+  <circle class="wheel" cx="1005" cy="600" r="22" />
+
+  <line class="guide" x1="340" y1="215" x2="340" y2="650" />
+  <line class="guide" x1="970" y1="215" x2="970" y2="650" />
+  <line class="dimension" x1="340" y1="648" x2="970" y2="648" />
+  <text class="label" x="631" y="636">base 19000</text>
+
+  <line class="dimension" x1="145" y1="705" x2="1160" y2="705" />
+  <text class="label" x="626" y="694">length 26232</text>
+
+  <line class="guide" x1="145" y1="520" x2="145" y2="715" />
+  <line class="guide" x1="1160" y1="520" x2="1160" y2="715" />
+
+  <text class="tiny" x="215" y="394">service entrance</text>
+  <text class="tiny" x="515" y="302">second-floor window row</text>
+  <text class="tiny" x="515" y="405">first-floor window row</text>
+  <text class="tiny" x="515" y="222">covered-wagon-type roof contour</text>
+
+  <rect class="panel" x="1300" y="115" width="340" height="570" rx="8" />
+  <text class="subtitle" x="1335" y="154">End outline</text>
+
+  <path class="body" d="M1375 520 L1375 310 L1418 250 L1522 250 L1565 310 L1565 520 Z" />
+  <path class="roof" d="M1418 250 L1440 220 L1500 220 L1522 250 Z" />
+  <line class="belt" x1="1375" y1="395" x2="1565" y2="395" />
+  <line class="belt" x1="1375" y1="470" x2="1565" y2="470" />
+  <rect class="door" x="1445" y="405" width="50" height="100" rx="4" />
+
+  <line class="dimension" x1="1595" y1="220" x2="1595" y2="520" />
+  <text class="label" x="1622" y="380" text-anchor="middle" transform="rotate(-90 1622 380)">height 5250</text>
+  <line class="dimension" x1="1375" y1="560" x2="1565" y2="560" />
+  <text class="label" x="1446" y="582">width 3185</text>
+
+  <line class="axis" x1="1335" y1="645" x2="1425" y2="645" />
+  <line class="axis" x1="1335" y1="645" x2="1335" y2="560" />
+  <text class="label" x="1434" y="650">z</text>
+  <text class="label" x="1326" y="550">y</text>
+</svg>

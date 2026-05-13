@@ -1,0 +1,179 @@
+wagon_type: passenger_double_deck
+
+geometry:
+  length: 26232
+  width: 3154
+  external_width: 3185
+  floor_y: 0
+  lowered_floor_y: -450
+  side_height: 4700
+  roof_height: 550
+  height_from_rail: 5250
+  bolster_positions: [3616, 22616]
+  end_positions: [0, 26232]
+  coupler_axis_y: 1060
+  body_reference: over_coupler_axes
+  gauge_profile: Tpr
+
+levels:
+  main_floor_y: 0
+  lower_floor_y: -450
+  interdeck_floor_y: 2100
+  lower_window_sill_y: 350
+  lower_window_head_y: 1350
+  upper_window_sill_y: 2750
+  upper_window_head_y: 3650
+  roof_side_y: 4700
+  roof_ridge_y: 5250
+
+layout:
+  cross_beam_pitch: 950
+  side_post_pitch: 850
+  roof_bow_pitch: 850
+  side_height_divisions: 7
+  floor_longitudinal_count_each_side: 2
+  include_diagonals: true
+  include_rigid_offsets: true
+  include_interdeck: true
+
+openings:
+  side_windows:
+    - x_start: 5100
+      x_end: 6100
+      y_bottom: 350
+      y_top: 1350
+      z_side: both
+      repeat:
+        count: 8
+        pitch: 1700
+    - x_start: 5100
+      x_end: 6100
+      y_bottom: 2750
+      y_top: 3650
+      z_side: both
+      repeat:
+        count: 8
+        pitch: 1700
+  side_doors:
+    - x_start: 700
+      x_end: 1800
+      y_bottom: 0
+      y_top: 2100
+      z_side: both
+  end_doors:
+    - x: 0
+      z_start: -450
+      z_end: 450
+      y_bottom: 0
+      y_top: 2000
+    - x: 26232
+      z_start: -450
+      z_end: 450
+      y_bottom: 0
+      y_top: 2000
+
+zones:
+  lowered_floor:
+    - x_start: 4300
+      x_end: 21900
+  stairwells:
+    - x_start: 2400
+      x_end: 3900
+    - x_start: 22300
+      x_end: 23800
+  vestibules:
+    - x_start: 0
+      x_end: 2200
+  service_rooms:
+    - x_start: 2200
+      x_end: 4300
+  passenger_compartments:
+    - x_start: 4300
+      x_end: 21900
+  sanitary_modules:
+    - x_start: 21900
+      x_end: 24500
+  roof_equipment:
+    - name: climate_unit
+      x_start: 900
+      x_end: 3600
+
+sections:
+  default_E: 210000
+  catalog: first_stage_passenger_v0.2.0
+  center_sill: center_sill_placeholder
+  side_sill: side_sill_placeholder
+  bolster_beam: bolster_beam_placeholder
+  end_beam: end_beam_placeholder
+  cross_beam: cross_beam_placeholder
+  floor_longitudinal: floor_longitudinal_placeholder
+  side_post: side_post_placeholder
+  opening_post: opening_post_placeholder
+  side_belt: side_belt_placeholder
+  end_post: end_post_placeholder
+  main_impact_post: main_impact_post_placeholder
+  roof_bow: roof_bow_placeholder
+  roof_longitudinal: roof_longitudinal_placeholder
+  interdeck_cross_beam: interdeck_cross_beam_placeholder
+  interdeck_longitudinal: interdeck_longitudinal_placeholder
+  diagonal_tie: diagonal_tie_equiv
+  rigid_offset: rigid_offset_stub
+
+loads:
+  vertical_distributed_load:
+    enabled: true
+    target_tags:
+      - center_sill
+      - side_sill
+      - cross_beam
+      - floor_longitudinal
+      - interdeck_cross_beam
+      - interdeck_longitudinal
+    w: -20
+    dist_dir: FY
+  equipment_zone_loads:
+    - name: climate_unit
+      x_start: 900
+      x_end: 3600
+      y: 4700
+      target_tags: [roof_longitudinal, roof_bow]
+      w: -5
+      dist_dir: FY
+  longitudinal_end_load:
+    enabled: false
+    x_end: 0
+    force: 1000000
+    direction: FX
+
+supports:
+  scheme: four_point_bolster_reference
+  support_points:
+    - x: 3616
+      y: 0
+      z: -900
+      dy: true
+    - x: 3616
+      y: 0
+      z: 900
+      dy: true
+    - x: 22616
+      y: 0
+      z: -900
+      dy: true
+    - x: 22616
+      y: 0
+      z: 900
+      dy: true
+  reference_restraints:
+    primary:
+      x: 3616
+      y: 0
+      z: 0
+      dx: true
+      dy: true
+      dz: true
+    secondary:
+      x: 22616
+      y: 0
+      z: 0
+      dz: true
