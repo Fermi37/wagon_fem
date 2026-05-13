@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Академическая расчетная схема котла вагона-цистерны</title>
+  <desc id="desc">Расчетная схема цилиндрической оболочки котла цистерны, ее балочная редукция, зоны опирания, продольные лапы крепления, нагрузки и реакции.</desc>
+  <defs>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b42318"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#047857"/>
+    </marker>
+    <style>
+      .page { fill: #f7f8fa; }
+      .sheet { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .panel { fill: #fbfdff; stroke: #d6dee8; stroke-width: 1.6; }
+      .title { font: 32px Arial, sans-serif; font-weight: 700; fill: #111827; }
+      .subtitle { font: 19px Arial, sans-serif; fill: #374151; }
+      .section { font: 22px Arial, sans-serif; font-weight: 700; fill: #111827; }
+      .label { font: 19px Arial, sans-serif; fill: #111827; }
+      .small { font: 16px Arial, sans-serif; fill: #374151; }
+      .tiny { font: 14px Arial, sans-serif; fill: #4b5563; }
+      .math { font: italic 18px Georgia, serif; fill: #111827; }
+      .math-small { font: italic 15px Georgia, serif; fill: #374151; }
+      .shell { fill: #edf8fb; stroke: #0f6170; stroke-width: 4; }
+      .shell-line { fill: none; stroke: #0f6170; stroke-width: 3; stroke-linecap: round; }
+      .shell-light { fill: none; stroke: #68aeba; stroke-width: 2; stroke-linecap: round; }
+      .shell-center { fill: none; stroke: #1f2937; stroke-width: 1.8; stroke-dasharray: 42 16 8 16; }
+      .frame-main { fill: none; stroke: #263238; stroke-width: 6; stroke-linecap: round; }
+      .frame { fill: none; stroke: #374151; stroke-width: 3.2; stroke-linecap: round; }
+      .interface { fill: none; stroke: #9a3412; stroke-width: 4.2; stroke-linecap: round; }
+      .lug { fill: none; stroke: #7c2d12; stroke-width: 4.2; stroke-linecap: round; }
+      .strap { fill: none; stroke: #b45309; stroke-width: 3; stroke-dasharray: 9 7; stroke-linecap: round; }
+      .load { fill: none; stroke: #b42318; stroke-width: 3.2; marker-end: url(#arrow-red); }
+      .long-load { fill: none; stroke: #1d4ed8; stroke-width: 3.2; marker-end: url(#arrow-blue); }
+      .reaction { fill: none; stroke: #047857; stroke-width: 3.2; marker-end: url(#arrow-green); }
+      .axis { fill: none; stroke: #1f2937; stroke-width: 2; marker-end: url(#arrow-dark); }
+      .dim { fill: none; stroke: #6b7280; stroke-width: 1.8; marker-start: url(#arrow-dark); marker-end: url(#arrow-dark); }
+      .dim-one { fill: none; stroke: #6b7280; stroke-width: 1.8; marker-end: url(#arrow-dark); }
+      .support { fill: #f3f4f6; stroke: #111827; stroke-width: 2.6; }
+      .node { fill: #ffffff; stroke: #1f2937; stroke-width: 2.2; }
+      .tank-node { fill: #ffffff; stroke: #0f6170; stroke-width: 2.2; }
+      .legend-line { stroke-width: 3.4; stroke-linecap: round; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="page" x="0" y="0" width="1600" height="1100"/>
+  <rect class="sheet" x="42" y="36" width="1516" height="1026" rx="6"/>
+
+  <text class="title" x="82" y="90">Расчетная схема цилиндрической оболочки котла вагона-цистерны</text>
+  <text class="subtitle" x="82" y="123">Академическая векторная схема по материалам главы 10: оболочечная постановка, балочная редукция и силовая связь котла с рамой</text>
+
+  <!-- Side view: shell, tank-frame connection, supports, and dimensions -->
+  <g id="side-view" transform="translate(72 154)">
+    <rect class="panel" x="0" y="0" width="1456" height="454" rx="5"/>
+    <text class="section" x="28" y="42">1. Продольная схема нагружения и передачи усилий</text>
+
+    <!-- Tank shell -->
+    <path class="shell" d="M 153 106 L 1303 106 L 1303 250 L 153 250 Z"/>
+    <path class="shell-light" d="M 153 106 L 134 124 L 134 232 L 153 250"/>
+    <path class="shell-light" d="M 1303 106 L 1322 124 L 1322 232 L 1303 250"/>
+    <line class="shell-center" x1="104" y1="178" x2="1352" y2="178"/>
+    <line class="shell-light" x1="153" y1="106" x2="1303" y2="106"/>
+    <line class="shell-light" x1="153" y1="250" x2="1303" y2="250"/>
+
+    <!-- End diaphragms and stations -->
+    <line class="shell-line" x1="153" y1="78" x2="153" y2="278"/>
+    <line class="shell-line" x1="1303" y1="78" x2="1303" y2="278"/>
+    <g>
+      <line class="shell-light" x1="298" y1="106" x2="298" y2="250"/>
+      <line class="shell-light" x1="443" y1="106" x2="443" y2="250"/>
+      <line class="shell-light" x1="588" y1="106" x2="588" y2="250"/>
+      <line class="shell-light" x1="728" y1="106" x2="728" y2="250"/>
+      <line class="shell-light" x1="868" y1="106" x2="868" y2="250"/>
+      <line class="shell-light" x1="1013" y1="106" x2="1013" y2="250"/>
+      <line class="shell-light" x1="1158" y1="106" x2="1158" y2="250"/>
+    </g>
+
+    <!-- Distributed vertical load P -->
+    <g>
+      <line class="load" x1="223" y1="48" x2="223" y2="92"/>
+      <line class="load" x1="368" y1="48" x2="368" y2="92"/>
+      <line class="load" x1="513" y1="48" x2="513" y2="92"/>
+      <line class="load" x1="658" y1="48" x2="658" y2="92"/>
+      <line class="load" x1="803" y1="48" x2="803" y2="92"/>
+      <line class="load" x1="948" y1="48" x2="948" y2="92"/>
+      <line class="load" x1="1093" y1="48" x2="1093" y2="92"/>
+      <line class="load" x1="1238" y1="48" x2="1238" y2="92"/>
+    </g>
+    <text class="math-small" x="670" y="42">P = (Q<tspan baseline-shift="sub" font-size="11">гр</tspan> + Q<tspan baseline-shift="sub" font-size="11">к</tspan>) / (2L<tspan baseline-shift="sub" font-size="11">ц</tspan>)</text>
+
+    <!-- Frame and interface -->
+    <line class="frame-main" x1="80" y1="348" x2="1376" y2="348"/>
+    <line class="frame" x1="80" y1="318" x2="1376" y2="318"/>
+    <line class="frame" x1="80" y1="378" x2="1376" y2="378"/>
+    <line class="frame-main" x1="255" y1="302" x2="255" y2="394"/>
+    <line class="frame-main" x1="1201" y1="302" x2="1201" y2="394"/>
+    <line class="frame" x1="80" y1="302" x2="80" y2="394"/>
+    <line class="frame" x1="1376" y1="302" x2="1376" y2="394"/>
+    <line class="frame" x1="488" y1="318" x2="488" y2="378"/>
+    <line class="frame" x1="728" y1="318" x2="728" y2="378"/>
+    <line class="frame" x1="968" y1="318" x2="968" y2="378"/>
+
+    <line class="interface" x1="255" y1="260" x2="255" y2="318"/>
+    <line class="interface" x1="1201" y1="260" x2="1201" y2="318"/>
+    <line class="lug" x1="728" y1="260" x2="728" y2="348"/>
+    <line class="interface" x1="225" y1="250" x2="255" y2="318"/>
+    <line class="interface" x1="285" y1="250" x2="255" y2="318"/>
+    <line class="interface" x1="1171" y1="250" x2="1201" y2="318"/>
+    <line class="interface" x1="1231" y1="250" x2="1201" y2="318"/>
+    <path class="strap" d="M 186 178 C 205 236, 225 288, 255 318"/>
+    <path class="strap" d="M 1270 178 C 1251 236, 1231 288, 1201 318"/>
+
+    <!-- Longitudinal force through center sill and lugs -->
+    <line class="long-load" x1="28" y1="348" x2="74" y2="348"/>
+    <line class="long-load" x1="682" y1="282" x2="724" y2="282"/>
+    <text class="math-small" x="32" y="332">T</text>
+    <text class="math-small" x="642" y="276">r, зона лапы</text>
+
+    <!-- Supports and reactions -->
+    <path class="support" d="M 213 428 L 297 428 L 255 378 z"/>
+    <path class="support" d="M 1159 428 L 1243 428 L 1201 378 z"/>
+    <line class="support" x1="190" y1="428" x2="320" y2="428"/>
+    <line class="support" x1="1136" y1="428" x2="1266" y2="428"/>
+    <line class="reaction" x1="255" y1="442" x2="255" y2="410"/>
+    <line class="reaction" x1="1201" y1="442" x2="1201" y2="410"/>
+    <text class="math-small" x="214" y="414">S<tspan baseline-shift="sub" font-size="11">1</tspan>, S<tspan baseline-shift="sub" font-size="11">2</tspan></text>
+    <text class="math-small" x="1160" y="414">S<tspan baseline-shift="sub" font-size="11">3</tspan>, S<tspan baseline-shift="sub" font-size="11">4</tspan></text>
+    <text class="math-small" x="281" y="441">q</text>
+    <text class="math-small" x="1227" y="441">q</text>
+
+    <!-- Nodes -->
+    <circle class="node" cx="80" cy="348" r="5"/>
+    <circle class="node" cx="255" cy="348" r="5"/>
+    <circle class="node" cx="728" cy="348" r="5"/>
+    <circle class="node" cx="1201" cy="348" r="5"/>
+    <circle class="node" cx="1376" cy="348" r="5"/>
+    <circle class="tank-node" cx="255" cy="260" r="5"/>
+    <circle class="tank-node" cx="728" cy="260" r="5"/>
+    <circle class="tank-node" cx="1201" cy="260" r="5"/>
+
+    <!-- Dimensions -->
+    <line class="dim" x1="153" y1="304" x2="1303" y2="304"/>
+    <text class="math-small" x="690" y="298">2L<tspan baseline-shift="sub" font-size="11">ц</tspan></text>
+    <line class="dim" x1="255" y1="404" x2="1201" y2="404"/>
+    <text class="math-small" x="696" y="398">2l<tspan baseline-shift="sub" font-size="11">b</tspan></text>
+
+    <!-- Labels -->
+    <text class="label" x="520" y="373">хребтовая балка рамы</text>
+    <text class="small" x="204" y="292">седловая опора</text>
+    <text class="small" x="754" y="315">средняя лапа крепления</text>
+    <text class="small" x="1058" y="292">седловая опора</text>
+    <text class="small" x="109" y="74">жесткая диафрагма днища</text>
+    <text class="small" x="1163" y="74">жесткая диафрагма днища</text>
+  </g>
+
+  <!-- Cross-section and local contact model -->
+  <g id="cross-section" transform="translate(72 642)">
+    <rect class="panel" x="0" y="0" width="706" height="310" rx="5"/>
+    <text class="section" x="28" y="42">2. Поперечное сечение и угловые зоны контакта</text>
+
+    <g transform="translate(48 58)">
+      <circle class="shell" cx="150" cy="132" r="94"/>
+      <line class="shell-light" x1="56" y1="132" x2="244" y2="132"/>
+      <line class="shell-light" x1="150" y1="38" x2="150" y2="226"/>
+      <path class="interface" d="M 108 214 A 94 94 0 0 0 192 214"/>
+      <line class="interface" x1="108" y1="214" x2="80" y2="260"/>
+      <line class="interface" x1="192" y1="214" x2="220" y2="260"/>
+      <line class="frame-main" x1="56" y1="260" x2="244" y2="260"/>
+      <line class="reaction" x1="150" y1="278" x2="150" y2="238"/>
+      <line class="load" x1="150" y1="2" x2="150" y2="32"/>
+      <path class="dim-one" d="M 150 132 L 227 78"/>
+      <text class="math-small" x="192" y="93">R</text>
+      <path class="dim-one" d="M 150 132 A 58 58 0 0 1 196 168"/>
+      <text class="math-small" x="204" y="160">β<tspan baseline-shift="sub" font-size="11">2</tspan> - β<tspan baseline-shift="sub" font-size="11">1</tspan></text>
+      <text class="math-small" x="126" y="252">q</text>
+      <text class="math-small" x="162" y="24">P</text>
+      <text class="tiny" x="60" y="288">шкворневая балка</text>
+    </g>
+
+    <g transform="translate(362 68)">
+      <rect class="panel" x="0" y="0" width="306" height="214" rx="4"/>
+      <text class="label" x="18" y="32">Контактные площадки</text>
+      <text class="math-small" x="18" y="66">A<tspan baseline-shift="sub" font-size="11">оп</tspan> = R(b - a)(β<tspan baseline-shift="sub" font-size="11">2</tspan> - β<tspan baseline-shift="sub" font-size="11">1</tspan>)</text>
+      <text class="math-small" x="18" y="98">q = 2PL<tspan baseline-shift="sub" font-size="11">ц</tspan> / [4R(b - a)(β<tspan baseline-shift="sub" font-size="11">2</tspan> - β<tspan baseline-shift="sub" font-size="11">1</tspan>)]</text>
+      <text class="math-small" x="18" y="130">r = T(Q<tspan baseline-shift="sub" font-size="11">к</tspan> + Q<tspan baseline-shift="sub" font-size="11">гр</tspan>) /</text>
+      <text class="math-small" x="36" y="154">[4Q<tspan baseline-shift="sub" font-size="11">бр</tspan>R(d - c)(β<tspan baseline-shift="sub" font-size="11">4</tspan> - β<tspan baseline-shift="sub" font-size="11">3</tspan>)]</text>
+      <text class="tiny" x="18" y="184">a, b - границы опорного бруска</text>
+      <text class="tiny" x="18" y="204">c, d - границы лапы крепления</text>
+    </g>
+  </g>
+
+  <!-- Beam reduction and moment diagram -->
+  <g id="beam-model" transform="translate(822 642)">
+    <rect class="panel" x="0" y="0" width="706" height="310" rx="5"/>
+    <text class="section" x="28" y="42">3. Балочная редукция для первого этапа расчета</text>
+
+    <g transform="translate(40 82)">
+      <line class="frame-main" x1="38" y1="86" x2="588" y2="86"/>
+      <path class="support" d="M 116 142 L 176 142 L 146 86 z"/>
+      <path class="support" d="M 450 142 L 510 142 L 480 86 z"/>
+      <line class="support" x1="96" y1="142" x2="196" y2="142"/>
+      <line class="support" x1="430" y1="142" x2="530" y2="142"/>
+      <text class="math-small" x="126" y="164">Q = PL<tspan baseline-shift="sub" font-size="11">ц</tspan></text>
+      <text class="math-small" x="462" y="164">Q = PL<tspan baseline-shift="sub" font-size="11">ц</tspan></text>
+
+      <g>
+        <line class="load" x1="76" y1="20" x2="76" y2="64"/>
+        <line class="load" x1="146" y1="20" x2="146" y2="64"/>
+        <line class="load" x1="216" y1="20" x2="216" y2="64"/>
+        <line class="load" x1="286" y1="20" x2="286" y2="64"/>
+        <line class="load" x1="356" y1="20" x2="356" y2="64"/>
+        <line class="load" x1="426" y1="20" x2="426" y2="64"/>
+        <line class="load" x1="496" y1="20" x2="496" y2="64"/>
+        <line class="load" x1="566" y1="20" x2="566" y2="64"/>
+      </g>
+      <text class="math-small" x="294" y="35">P</text>
+
+      <path d="M 38 210 C 170 156, 456 156, 588 210" fill="none" stroke="#b42318" stroke-width="3.2"/>
+      <line class="frame" x1="38" y1="210" x2="588" y2="210"/>
+      <text class="math-small" x="270" y="184">M<tspan baseline-shift="sub" font-size="11">max</tspan></text>
+      <text class="math-small" x="88" y="238">M<tspan baseline-shift="sub" font-size="11">max</tspan> = 0,5PL<tspan baseline-shift="sub" font-size="11">ц</tspan><tspan baseline-shift="super" font-size="11">2</tspan>(2l<tspan baseline-shift="sub" font-size="11">b</tspan>/L<tspan baseline-shift="sub" font-size="11">ц</tspan> - 1)</text>
+      <text class="math-small" x="88" y="260">σ = M<tspan baseline-shift="sub" font-size="11">max</tspan> sinφ / (πδR<tspan baseline-shift="super" font-size="11">2</tspan>)</text>
+    </g>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" transform="translate(72 1020)">
+    <line class="legend-line" x1="0" y1="0" x2="58" y2="0" stroke="#0f6170"/>
+    <text class="tiny" x="72" y="5">оболочка и кольца котла</text>
+    <line class="legend-line" x1="320" y1="0" x2="378" y2="0" stroke="#263238"/>
+    <text class="tiny" x="392" y="5">рама и хребтовая балка</text>
+    <line class="legend-line" x1="610" y1="0" x2="668" y2="0" stroke="#9a3412"/>
+    <text class="tiny" x="682" y="5">седла, лапы и стяжные элементы</text>
+    <line class="legend-line" x1="964" y1="0" x2="1022" y2="0" stroke="#b42318"/>
+    <text class="tiny" x="1036" y="5">нагрузка от котла и груза</text>
+    <line class="legend-line" x1="1256" y1="0" x2="1314" y2="0" stroke="#047857"/>
+    <text class="tiny" x="1328" y="5">опорная реакция</text>
+  </g>
+</svg>
