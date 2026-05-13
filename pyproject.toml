@@ -17,6 +17,7 @@ dependencies = [
 [project.scripts]
 wagon-fem = "wagon_fem.__main__:main"
 wagon-fem-ui = "wagon_fem.ui_cli:main"
+wagon-fem-parametric = "wagon_fem.parametric.__main__:main"
 
 [build-system]
 requires = ["hatchling"]

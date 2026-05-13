@@ -41,6 +41,13 @@ CLI (simple):
 python -m wagon_fem data/wagon_frame.csv
 ```
 
+Generate a parametric open-wagon model and run it through the existing solver:
+
+```bash
+python -m wagon_fem.parametric examples/open_wagon.yaml --output tmp/open_wagon.csv --validate
+python -m wagon_fem tmp/open_wagon.csv
+```
+
 Interactive web UI (Gradio):
 
 ```bash
@@ -82,6 +89,7 @@ print(df)
 Key modules:
 - `wagon_fem.loader` — helpers for small CSV formats (edge/node tables)
 - `wagon_fem.model` — model construction helpers (create demo frames, load CSVs)
+- `wagon_fem.parametric` — parametric open-wagon and covered-wagon beam-frame generator
 - `wagon_fem.solver` — analysis wrappers and result extraction (moments, displacements)
 - `wagon_fem.services` — UI-oriented table preparation, task-data merging, analysis orchestration, and `Model3D` export
 - `wagon_fem.ui` — Gradio front-end and helpers for interactive use

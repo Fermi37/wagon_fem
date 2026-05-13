@@ -22,6 +22,21 @@ This folder contains the implementation documents for a parametric generator of 
 - [08_body_scheme_illustration.md](08_body_scheme_illustration.md) - conceptual body-frame illustration with topology explanations.
 - [09_confidence_hardening.md](09_confidence_hardening.md) - verification layers for raising implementation confidence before full delivery.
 - [params.open_wagon.example.yaml](params.open_wagon.example.yaml) - starter parameter file.
+- [params.covered_wagon.example.yaml](params.covered_wagon.example.yaml) - starter covered-wagon parameter file.
+
+## Implemented Entry Points
+
+Generate and validate the default open-wagon CSV:
+
+```bash
+python -m wagon_fem.parametric params.open_wagon.example.yaml --output ../../tmp/open_wagon.csv --validate
+```
+
+Run the existing solver on the generated CSV:
+
+```bash
+python -m wagon_fem ../../tmp/open_wagon.csv
+```
 
 ## Version Policy
 
