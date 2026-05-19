@@ -1,8 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="980" viewBox="0 0 1700 980" role="img" aria-labelledby="title desc">
-  <title id="title">Single-deck passenger-car beam model aligned with KRV chapter 11</title>
-  <desc id="desc">Corrected single-deck passenger-car beam model with side-wall belts, inter-window posts, opening boundary post segments, variable center sill zones, bolster lines, and a cylindrical roof bow shown only in cross section.</desc>
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1700"
+   height="592"
+   viewBox="0 0 1700 592"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg73"
+   sodipodi:docname="body_scheme_single_deck_v0_2_0.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview73"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.51764706"
+     inkscape:cx="849.03409"
+     inkscape:cy="489.71591"
+     inkscape:window-width="1842"
+     inkscape:window-height="1494"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg73" />
+  <title
+     id="title">Single-deck passenger-car beam model aligned with KRV chapter 11</title>
+  <desc
+     id="desc">Corrected single-deck passenger-car beam model with side-wall belts, inter-window posts, opening boundary post segments, variable center sill zones, bolster lines, and a cylindrical roof bow shown only in cross section.</desc>
+  <defs
+     id="defs2">
+    <style
+       id="style1">
       .bg { fill: #f8fafc; }
       .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
       .title { font-family: Arial, sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
@@ -23,121 +62,773 @@
       .dimension { stroke: #64748b; stroke-width: 2; marker-start: url(#arrowDim); marker-end: url(#arrowDim); }
       .axis { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrowDark); }
     </style>
-    <marker id="arrowDim" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-      <path d="M1,5 L9,1 L7,5 L9,9 Z" fill="#64748b" />
+    <marker
+       id="arrowDim"
+       markerWidth="10"
+       markerHeight="10"
+       refX="5"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 1,5 9,1 7,5 9,9 Z"
+         fill="#64748b"
+         id="path1" />
     </marker>
-    <marker id="arrowDark" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-      <path d="M2,2 L10,6 L2,10 Z" fill="#0f172a" />
+    <marker
+       id="arrowDark"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="m 2,2 8,4 -8,4 z"
+         fill="#0f172a"
+         id="path2" />
+    </marker>
+    <marker
+       id="arrowDark-8"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="m 2,2 8,4 -8,4 z"
+         fill="#0f172a"
+         id="path1-0" />
+    </marker>
+    <marker
+       id="marker2"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="m 2,2 8,4 -8,4 z"
+         fill="#0f172a"
+         id="path2-2" />
+    </marker>
+    <marker
+       id="arrowDim-4"
+       markerWidth="10"
+       markerHeight="10"
+       refX="5"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 1,5 9,1 7,5 9,9 Z"
+         fill="#64748b"
+         id="path3" />
+    </marker>
+    <marker
+       id="marker4"
+       markerWidth="10"
+       markerHeight="10"
+       refX="5"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 1,5 9,1 7,5 9,9 Z"
+         fill="#64748b"
+         id="path4" />
+    </marker>
+    <marker
+       id="arrowDark-9"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="m 2,2 8,4 -8,4 z"
+         fill="#0f172a"
+         id="path1-1" />
+    </marker>
+    <marker
+       id="marker2-7"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="m 2,2 8,4 -8,4 z"
+         fill="#0f172a"
+         id="path2-5" />
+    </marker>
+    <marker
+       id="arrowDim-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="5"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 1,5 9,1 7,5 9,9 Z"
+         fill="#64748b"
+         id="path3-4" />
+    </marker>
+    <marker
+       id="marker4-1"
+       markerWidth="10"
+       markerHeight="10"
+       refX="5"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 1,5 9,1 7,5 9,9 Z"
+         fill="#64748b"
+         id="path4-8" />
     </marker>
   </defs>
-
-  <rect class="bg" x="0" y="0" width="1700" height="980" />
-  <text class="title" x="55" y="55">Single-Deck Passenger-Car Beam Model</text>
-  <text class="small" x="55" y="86">Corrected topology from KRV chapter 11: side belts and posts are shown in side view; roof-bow geometry is shown in cross section.</text>
-
-  <rect class="panel" x="40" y="120" width="1080" height="780" rx="8" />
-  <text class="subtitle" x="75" y="160">Side-wall and underframe scheme in the x-y plane</text>
-
-  <line class="axis" x1="90" y1="840" x2="205" y2="840" />
-  <line class="axis" x1="90" y1="840" x2="90" y2="735" />
-  <text class="label" x="214" y="845">x</text>
-  <text class="label" x="81" y="725">y</text>
-
-  <line class="dimension" x1="205" y1="210" x2="1005" y2="210" />
-  <text class="label" x="574" y="198">L = 24537</text>
-
-  <rect class="endzone" x="205" y="455" width="105" height="350" rx="4" />
-  <rect class="endzone" x="900" y="455" width="105" height="350" rx="4" />
-
-  <line class="side" x1="205" y1="805" x2="1005" y2="805" />
-  <line class="belt" x1="205" y1="725" x2="1005" y2="725" />
-  <line class="belt" x1="205" y1="640" x2="1005" y2="640" />
-  <line class="belt" x1="205" y1="540" x2="1005" y2="540" />
-  <line class="belt" x1="205" y1="455" x2="1005" y2="455" />
-  <line class="roof" x1="205" y1="425" x2="1005" y2="425" />
-
-  <g id="window-openings">
-    <rect class="opening" x="350" y="552" width="72" height="76" rx="4" />
-    <rect class="opening" x="455" y="552" width="72" height="76" rx="4" />
-    <rect class="opening" x="560" y="552" width="72" height="76" rx="4" />
-    <rect class="opening" x="665" y="552" width="72" height="76" rx="4" />
-    <rect class="opening" x="770" y="552" width="72" height="76" rx="4" />
+  <g
+     id="g73"
+     transform="translate(-481.02273,589.20455)">
+    <rect
+       class="panel"
+       x="508.52274"
+       y="-551.02271"
+       width="1040"
+       height="440"
+       rx="8"
+       id="rect54"
+       style="fill:#ffffff;stroke:#cbd5e1;stroke-width:2" />
+    <line
+       class="axis"
+       x1="538.40912"
+       y1="-185.34091"
+       x2="653.40912"
+       y2="-185.34091"
+       id="line54-3"
+       style="stroke:#0f172a;stroke-width:3;marker-end:url(#arrowDark-8)" />
+    <line
+       class="axis"
+       x1="538.40912"
+       y1="-185.34091"
+       x2="538.40912"
+       y2="-290.34091"
+       id="line55-9"
+       style="stroke:#0f172a;stroke-width:3;marker-end:url(#arrowDark-8)" />
+    <text
+       class="label"
+       x="661.40912"
+       y="-180.34091"
+       id="text55"
+       style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">x</text>
+    <text
+       class="label"
+       x="529.40912"
+       y="-300.34091"
+       id="text56"
+       style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">y</text>
+    <line
+       class="dimension"
+       x1="1443.4091"
+       y1="-455.34091"
+       x2="1443.4091"
+       y2="-210.34091"
+       id="line56-0"
+       style="stroke:#64748b;stroke-width:2;marker-start:url(#arrowDim-4);marker-end:url(#arrowDim-4)" />
+    <text
+       class="label"
+       x="1460.4091"
+       y="-330.34091"
+       id="text57"
+       style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">side height</text>
+    <line
+       class="belt"
+       x1="698.40912"
+       y1="-210.34091"
+       x2="1403.4091"
+       y2="-210.34091"
+       id="line57-5"
+       style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="belt"
+       x1="698.40912"
+       y1="-290.34091"
+       x2="1403.4091"
+       y2="-290.34091"
+       id="line58-2"
+       style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="belt"
+       x1="698.40912"
+       y1="-405.34091"
+       x2="1403.4091"
+       y2="-405.34091"
+       id="line59-2"
+       style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="belt"
+       x1="698.40912"
+       y1="-475.34091"
+       x2="1403.4091"
+       y2="-475.34091"
+       id="line60-7"
+       style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="roof"
+       x1="698.40912"
+       y1="-475.34091"
+       x2="1403.4091"
+       y2="-475.34091"
+       id="line61-3"
+       style="stroke:#0891b2;stroke-width:5;stroke-linecap:round" />
+    <rect
+       class="opening"
+       x="778.40912"
+       y="-395.34091"
+       width="72"
+       height="95"
+       rx="3"
+       id="rect61"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="893.40912"
+       y="-395.34091"
+       width="72"
+       height="95"
+       rx="3"
+       id="rect62"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="1008.4091"
+       y="-395.34091"
+       width="72"
+       height="95"
+       rx="3"
+       id="rect63"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="1123.4091"
+       y="-395.34091"
+       width="72"
+       height="95"
+       rx="3"
+       id="rect64"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="1238.4091"
+       y="-395.34091"
+       width="72"
+       height="95"
+       rx="3"
+       id="rect65"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="713.40912"
+       y="-370.34091"
+       width="52"
+       height="160"
+       rx="3"
+       id="rect66"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <rect
+       class="opening"
+       x="1333.4091"
+       y="-370.34091"
+       width="52"
+       height="160"
+       rx="3"
+       id="rect67"
+       style="fill:#eff6ff;stroke:#93c5fd;stroke-width:2" />
+    <line
+       class="post"
+       x1="698.40912"
+       y1="-475.34091"
+       x2="698.40912"
+       y2="-210.34091"
+       id="line67"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="765.40912"
+       y1="-475.34091"
+       x2="765.40912"
+       y2="-210.34091"
+       id="line68"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="778.40912"
+       y1="-475.34091"
+       x2="778.40912"
+       y2="-210.34091"
+       id="line69"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="850.40912"
+       y1="-475.34091"
+       x2="850.40912"
+       y2="-210.34091"
+       id="line70"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="893.40912"
+       y1="-475.34091"
+       x2="893.40912"
+       y2="-210.34091"
+       id="line71"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="965.40912"
+       y1="-475.34091"
+       x2="965.40912"
+       y2="-210.34091"
+       id="line72"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1008.4091"
+       y1="-475.34091"
+       x2="1008.4091"
+       y2="-210.34091"
+       id="line73"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1080.4091"
+       y1="-475.34091"
+       x2="1080.4091"
+       y2="-210.34091"
+       id="line74"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1123.4091"
+       y1="-475.34091"
+       x2="1123.4091"
+       y2="-210.34091"
+       id="line75"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1195.4091"
+       y1="-475.34091"
+       x2="1195.4091"
+       y2="-210.34091"
+       id="line76"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1238.4091"
+       y1="-475.34091"
+       x2="1238.4091"
+       y2="-210.34091"
+       id="line77"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1310.4091"
+       y1="-475.34091"
+       x2="1310.4091"
+       y2="-210.34091"
+       id="line78"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1333.4091"
+       y1="-475.34091"
+       x2="1333.4091"
+       y2="-210.34091"
+       id="line79"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1385.4091"
+       y1="-475.34091"
+       x2="1385.4091"
+       y2="-210.34091"
+       id="line80"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="post"
+       x1="1403.4091"
+       y1="-475.34091"
+       x2="1403.4091"
+       y2="-210.34091"
+       id="line81"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <line
+       class="tie"
+       x1="850.40912"
+       y1="-210.34091"
+       x2="893.40912"
+       y2="-290.34091"
+       id="line82"
+       style="stroke:#64748b;stroke-width:3;stroke-linecap:round;stroke-dasharray:10, 8" />
+    <line
+       class="tie"
+       x1="965.40912"
+       y1="-210.34091"
+       x2="1008.4091"
+       y2="-290.34091"
+       id="line83"
+       style="stroke:#64748b;stroke-width:3;stroke-linecap:round;stroke-dasharray:10, 8" />
+    <line
+       class="tie"
+       x1="1080.4091"
+       y1="-210.34091"
+       x2="1123.4091"
+       y2="-290.34091"
+       id="line84"
+       style="stroke:#64748b;stroke-width:3;stroke-linecap:round;stroke-dasharray:10, 8" />
+    <line
+       class="tie"
+       x1="1195.4091"
+       y1="-210.34091"
+       x2="1238.4091"
+       y2="-290.34091"
+       id="line85"
+       style="stroke:#64748b;stroke-width:3;stroke-linecap:round;stroke-dasharray:10, 8" />
+    <text
+       class="tiny"
+       x="783.40912"
+       y="-275.34091"
+       id="text85"
+       style="font-size:11px;font-family:Arial, sans-serif;fill:#475569">side windows</text>
+    <text
+       class="tiny"
+       x="709.40912"
+       y="-188.34091"
+       id="text86"
+       style="font-size:11px;font-family:Arial, sans-serif;fill:#475569">side door</text>
+    <text
+       class="tiny"
+       x="1321.4091"
+       y="-188.34091"
+       id="text87"
+       style="font-size:11px;font-family:Arial, sans-serif;fill:#475569">service door</text>
   </g>
-
-  <g id="side-posts">
-    <line class="post" x1="205" y1="455" x2="205" y2="805" />
-    <line class="post" x1="310" y1="455" x2="310" y2="805" />
-    <line class="post" x1="350" y1="455" x2="350" y2="552" />
-    <line class="post" x1="350" y1="628" x2="350" y2="805" />
-    <line class="post" x1="422" y1="455" x2="422" y2="552" />
-    <line class="post" x1="422" y1="628" x2="422" y2="805" />
-    <line class="post" x1="455" y1="455" x2="455" y2="805" />
-    <line class="post" x1="527" y1="455" x2="527" y2="552" />
-    <line class="post" x1="527" y1="628" x2="527" y2="805" />
-    <line class="post" x1="560" y1="455" x2="560" y2="805" />
-    <line class="post" x1="632" y1="455" x2="632" y2="552" />
-    <line class="post" x1="632" y1="628" x2="632" y2="805" />
-    <line class="post" x1="665" y1="455" x2="665" y2="805" />
-    <line class="post" x1="737" y1="455" x2="737" y2="552" />
-    <line class="post" x1="737" y1="628" x2="737" y2="805" />
-    <line class="post" x1="770" y1="455" x2="770" y2="805" />
-    <line class="post" x1="842" y1="455" x2="842" y2="552" />
-    <line class="post" x1="842" y1="628" x2="842" y2="805" />
-    <line class="post" x1="900" y1="455" x2="900" y2="805" />
-    <line class="post" x1="1005" y1="455" x2="1005" y2="805" />
+  <rect
+     class="panel"
+     x="1139.5909"
+     y="39.681793"
+     width="520"
+     height="435"
+     rx="8"
+     id="rect87"
+     style="fill:#ffffff;stroke:#cbd5e1;stroke-width:2" />
+  <text
+     class="subtitle"
+     x="1174.5909"
+     y="78.681808"
+     id="text88"
+     style="font-weight:700;font-size:19px;font-family:Arial, sans-serif;fill:#1e293b">Single-deck cross section: y-z plane</text>
+  <line
+     class="axis"
+     x1="1194.5909"
+     y1="429.68185"
+     x2="1304.5909"
+     y2="429.68185"
+     id="line88"
+     style="stroke:#0f172a;stroke-width:3;marker-end:url(#arrowDark-9)" />
+  <line
+     class="axis"
+     x1="1194.5909"
+     y1="429.68185"
+     x2="1194.5909"
+     y2="324.68185"
+     id="line89"
+     style="stroke:#0f172a;stroke-width:3;marker-end:url(#arrowDark-9)" />
+  <text
+     class="label"
+     x="1314.5909"
+     y="434.68185"
+     id="text89"
+     style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">z</text>
+  <text
+     class="label"
+     x="1185.5909"
+     y="314.68185"
+     id="text90"
+     style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">y</text>
+  <line
+     class="dimension"
+     x1="1249.5909"
+     y1="394.68185"
+     x2="1549.5909"
+     y2="394.68185"
+     id="line90"
+     style="stroke:#64748b;stroke-width:2;marker-start:url(#arrowDim-5);marker-end:url(#arrowDim-5)" />
+  <text
+     class="label"
+     x="1394.5909"
+     y="382.68185"
+     id="text91"
+     style="font-size:15px;font-family:Arial, sans-serif;fill:#1e293b">B</text>
+  <line
+     class="cross"
+     x1="1249.5909"
+     y1="364.68185"
+     x2="1549.5909"
+     y2="364.68185"
+     id="line91"
+     style="stroke:#7c3aed;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="center"
+     x1="1399.5909"
+     y1="364.68185"
+     x2="1399.5909"
+     y2="364.68185"
+     id="line92"
+     style="stroke:#0f766e;stroke-width:8;stroke-linecap:round" />
+  <line
+     class="post"
+     x1="1249.5909"
+     y1="364.68185"
+     x2="1249.5909"
+     y2="179.68184"
+     id="line93"
+     style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="post"
+     x1="1549.5909"
+     y1="364.68185"
+     x2="1549.5909"
+     y2="179.68184"
+     id="line94"
+     style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="belt"
+     x1="1249.5909"
+     y1="269.68185"
+     x2="1549.5909"
+     y2="269.68185"
+     id="line95"
+     style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="belt"
+     x1="1249.5909"
+     y1="179.68184"
+     x2="1549.5909"
+     y2="179.68184"
+     id="line96"
+     style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="roof"
+     x1="1249.5909"
+     y1="179.68184"
+     x2="1309.5909"
+     y2="124.68184"
+     id="line97"
+     style="stroke:#0891b2;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="roof"
+     x1="1309.5909"
+     y1="124.68184"
+     x2="1489.5909"
+     y2="124.68184"
+     id="line98"
+     style="stroke:#0891b2;stroke-width:5;stroke-linecap:round" />
+  <line
+     class="roof"
+     x1="1489.5909"
+     y1="124.68184"
+     x2="1549.5909"
+     y2="179.68184"
+     id="line99"
+     style="stroke:#0891b2;stroke-width:5;stroke-linecap:round" />
+  <circle
+     class="node"
+     cx="1249.5909"
+     cy="364.68185"
+     r="5"
+     id="circle99"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <circle
+     class="node"
+     cx="1549.5909"
+     cy="364.68185"
+     r="5"
+     id="circle100"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <circle
+     class="node"
+     cx="1249.5909"
+     cy="179.68184"
+     r="5"
+     id="circle101"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <circle
+     class="node"
+     cx="1549.5909"
+     cy="179.68184"
+     r="5"
+     id="circle102"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <circle
+     class="node"
+     cx="1309.5909"
+     cy="124.68184"
+     r="5"
+     id="circle103"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <circle
+     class="node"
+     cx="1489.5909"
+     cy="124.68184"
+     r="5"
+     id="circle104"
+     style="fill:#ffffff;stroke:#334155;stroke-width:2" />
+  <text
+     class="tiny"
+     x="1344.5909"
+     y="349.68185"
+     id="text104"
+     style="font-size:11px;font-family:Arial, sans-serif;fill:#475569">floor grid</text>
+  <text
+     class="tiny"
+     x="1344.5909"
+     y="112.68184"
+     id="text105"
+     style="font-size:11px;font-family:Arial, sans-serif;fill:#475569">covered-wagon-type roof gauge</text>
+  <text
+     class="small"
+     x="24.593306"
+     y="511.64621"
+     id="text3"
+     style="font-size:13px;font-family:Arial, sans-serif;fill:#475569">Beam-only topology for member forces and bending moments in wagon_fem. Dimensions are schematic.</text>
+  <g
+     id="line-type-legend"
+     transform="translate(-30.406695,429.64618)">
+    <text
+       class="subtitle"
+       x="55"
+       y="118"
+       id="text4"
+       style="font-weight:700;font-size:19px;font-family:Arial, sans-serif;fill:#1e293b">Line types</text>
+    <line
+       class="center"
+       x1="175"
+       y1="112"
+       x2="235"
+       y2="112"
+       id="line4"
+       style="stroke:#0f766e;stroke-width:8;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="248"
+       y="116"
+       id="text5"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">center sill</text>
+    <line
+       class="side"
+       x1="345"
+       y1="112"
+       x2="405"
+       y2="112"
+       id="line5"
+       style="stroke:#2563eb;stroke-width:6;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="418"
+       y="116"
+       id="text6"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">side sill</text>
+    <line
+       class="cross"
+       x1="525"
+       y1="112"
+       x2="585"
+       y2="112"
+       id="line6"
+       style="stroke:#7c3aed;stroke-width:5;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="598"
+       y="116"
+       id="text7"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">cross and bolster beams</text>
+    <line
+       class="post"
+       x1="790"
+       y1="112"
+       x2="850"
+       y2="112"
+       id="line7"
+       style="stroke:#dc2626;stroke-width:5;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="863"
+       y="116"
+       id="text8"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">posts</text>
+    <line
+       class="belt"
+       x1="955"
+       y1="112"
+       x2="1015"
+       y2="112"
+       id="line8"
+       style="stroke:#ea580c;stroke-width:5;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="1028"
+       y="116"
+       id="text9"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">side belts</text>
+    <line
+       class="roof"
+       x1="1135"
+       y1="112"
+       x2="1195"
+       y2="112"
+       id="line9"
+       style="stroke:#0891b2;stroke-width:5;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="1208"
+       y="116"
+       id="text10"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">roof members</text>
+    <line
+       class="interdeck"
+       x1="1335"
+       y1="112"
+       x2="1395"
+       y2="112"
+       id="line10"
+       style="stroke:#16a34a;stroke-width:5;stroke-linecap:round" />
+    <text
+       class="legendText"
+       x="1408"
+       y="116"
+       id="text11"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">interdeck beams</text>
+    <line
+       class="tie"
+       x1="1530"
+       y1="112"
+       x2="1590"
+       y2="112"
+       id="line11"
+       style="stroke:#64748b;stroke-width:3;stroke-linecap:round;stroke-dasharray:10, 8" />
+    <text
+       class="legendText"
+       x="1603"
+       y="116"
+       id="text12"
+       style="font-size:13px;font-family:Arial, sans-serif;fill:#334155">equivalent ties</text>
   </g>
-
-  <g id="underframe">
-    <line class="cross" x1="320" y1="805" x2="320" y2="725" />
-    <line class="cross" x1="900" y1="805" x2="900" y2="725" />
-    <line class="center" x1="205" y1="842" x2="320" y2="842" />
-    <line class="center" x1="320" y1="858" x2="900" y2="858" />
-    <line class="center" x1="900" y1="842" x2="1005" y2="842" />
-    <line class="tie" x1="320" y1="805" x2="370" y2="725" />
-    <line class="tie" x1="900" y1="805" x2="842" y2="725" />
-  </g>
-
-  <text class="tiny" x="436" y="530">window belt: opening frames and inter-window posts</text>
-  <text class="tiny" x="222" y="445">roof side rail in side view</text>
-  <text class="tiny" x="214" y="825">side sill and lower side-wall belt</text>
-  <text class="tiny" x="370" y="880">variable center sill: heavy end zones, transition zones, middle span</text>
-  <text class="tiny" x="303" y="712">bolster line</text>
-  <text class="tiny" x="878" y="712">bolster line</text>
-  <text class="tiny" x="226" y="785">end/service zone</text>
-  <text class="tiny" x="910" y="785">end/service zone</text>
-
-  <rect class="panel" x="1170" y="120" width="470" height="780" rx="8" />
-  <text class="subtitle" x="1205" y="160">Cross section in the y-z plane</text>
-
-  <line class="axis" x1="1230" y1="830" x2="1335" y2="830" />
-  <line class="axis" x1="1230" y1="830" x2="1230" y2="725" />
-  <text class="label" x="1344" y="835">z</text>
-  <text class="label" x="1221" y="715">y</text>
-
-  <line class="dimension" x1="1285" y1="780" x2="1535" y2="780" />
-  <text class="label" x="1379" y="768">B = 3105</text>
-
-  <line class="cross" x1="1285" y1="735" x2="1535" y2="735" />
-  <line class="center" x1="1410" y1="760" x2="1410" y2="760" />
-  <line class="post" x1="1285" y1="735" x2="1285" y2="470" />
-  <line class="post" x1="1535" y1="735" x2="1535" y2="470" />
-  <line class="belt" x1="1285" y1="640" x2="1535" y2="640" />
-  <line class="belt" x1="1285" y1="540" x2="1535" y2="540" />
-  <line class="belt" x1="1285" y1="470" x2="1535" y2="470" />
-  <line class="roof" x1="1285" y1="470" x2="1320" y2="432" />
-  <line class="roof" x1="1320" y1="432" x2="1365" y2="408" />
-  <line class="roof" x1="1365" y1="408" x2="1455" y2="408" />
-  <line class="roof" x1="1455" y1="408" x2="1500" y2="432" />
-  <line class="roof" x1="1500" y1="432" x2="1535" y2="470" />
-
-  <circle class="node" cx="1285" cy="735" r="5" />
-  <circle class="node" cx="1535" cy="735" r="5" />
-  <circle class="node" cx="1285" cy="470" r="5" />
-  <circle class="node" cx="1535" cy="470" r="5" />
-  <circle class="node" cx="1320" cy="432" r="5" />
-  <circle class="node" cx="1365" cy="408" r="5" />
-  <circle class="node" cx="1455" cy="408" r="5" />
-  <circle class="node" cx="1500" cy="432" r="5" />
-  <text class="tiny" x="1325" y="392">segmented cylindrical roof bow</text>
-  <text class="tiny" x="1335" y="625">side-wall belts</text>
+  <metadata
+     id="metadata73">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Single-deck passenger-car beam model aligned with KRV chapter 11</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 </svg>
